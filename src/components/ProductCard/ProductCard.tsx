@@ -28,7 +28,7 @@ const ProductCard = ({ product }: any) => {
           <span className="font-medium">${product.price}</span>
           <Link
             className="flex justify-center items-center"
-            to={`/bikes/${product._id}`}
+            to={`/products/${product._id}`}
           >
             <motion.button
               whileHover={{ scale: 1.05 }}

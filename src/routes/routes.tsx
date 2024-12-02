@@ -13,6 +13,8 @@ import { userPaths } from "./userRoutes";
 import { adminPaths } from "./adminRoutes";
 
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
+import ProfilePage from "@/pages/GetMe";
+import ProductDetails from "@/pages/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: "/products/:productId",
+        element: <ProductDetails></ProductDetails>,
       },
     ],
   },
@@ -53,6 +59,16 @@ const router = createBrowserRouter([
     ),
     errorElement: <Error></Error>,
     children: routeGenerator(userPaths),
+  },
+  {
+    path: "/get-me",
+    element: <App></App>,
+    children: [
+      {
+        index: true,
+        element: <ProfilePage></ProfilePage>,
+      },
+    ],
   },
 
   {

@@ -10,13 +10,13 @@ const productApi = baseApi.injectEndpoints({
             }),
             providesTags: ['products'],
         }),
-        // getBikeById: builder.query({
-        //     query: (id) => ({
-        //         url:`/bikes/${id}`,
-        //         method: 'GET',
-        //     }),
-        //     providesTags: ['bikes'],
-        // }),
+        getProductById: builder.query({
+            query: (id) => ({
+                url: `/product/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['products'],
+        }),
         // addBike: builder.mutation({
         //     query:(bikeInfo) => {
         //         // console.log('from base api=>', bikeInfo);
@@ -51,4 +51,4 @@ const productApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useGetAllProductsQuery } = productApi;
+export const { useGetAllProductsQuery, useGetProductByIdQuery } = productApi;
