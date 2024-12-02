@@ -23,9 +23,9 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
   const token = useAppSelector(useCurrentToken);
-  console.log(user, token, "from nav");
-  const desires = user?.role;
-  console.log(desires);
+  // console.log(user, token, "from nav");
+  // const desires = user?.role;
+  // console.log(desires);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -102,10 +102,10 @@ const Navbar = () => {
                 Products
               </a>
               <a
-                href="/users/my-orders"
+                href="/customer/cart"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                Orders
+                Cart
               </a>
             </>
           )}

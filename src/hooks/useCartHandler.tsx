@@ -5,6 +5,7 @@ import {
   addToCart,
   replaceCart,
   cancelCartUpdate,
+  resolveConflict,
 } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/product.interface";
 
@@ -32,7 +33,7 @@ const useCartHandler = () => {
         userId,
       })
     );
-    toast.success(`${product.name} added to the cart!`);
+    toast.success(`Product added to the cart!`);
   };
 
   const handleReplaceCart = (
@@ -51,6 +52,16 @@ const useCartHandler = () => {
     toast.success("Cart replaced with the new product!");
   };
 
+  const handleResolveConflict = (replace: boolean) => {
+    // Resolve the conflict: Replace the cart or keep the current cart
+    dispatch(resolveConflict({ replace }));
+    if (replace) {
+      toast.success("Cart replaced with the new items!");
+    } else {
+      toast.success("Cart update canceled.");
+    }
+  };
+
   const handleCancelConflict = () => {
     // Cancel the cart update
     dispatch(cancelCartUpdate());
@@ -60,6 +71,7 @@ const useCartHandler = () => {
   return {
     handleAddToCart,
     handleReplaceCart,
+    handleResolveConflict,
     handleCancelConflict,
   };
 };

@@ -2,25 +2,26 @@ import Loading from "@/components/Loading/Loading";
 
 import { Link, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
 } from "@/redux/features/product/productApi";
+import useCartHandler from "@/hooks/useCartHandler";
+import { useGetProfileQuery } from "@/redux/features/user/userApi";
 
 const ProductDetails = () => {
   const { productId } = useParams();
+
+  const { handleAddToCart } = useCartHandler();
+
+  const { data: userData } = useGetProfileQuery("", {
+    pollingInterval: 30000,
+  });
+
+  const user = userData?.data;
+  console.log(user, "user");
+
   const {
     data: product,
     isLoading,
@@ -33,46 +34,17 @@ const ProductDetails = () => {
   });
 
   const reviews = product?.data?.reviews;
+  const shopId = product?.data?.shopId;
+  console.log(shopId);
 
-  console.log(reviews, "review");
-  console.log(relatedProducts, product?.data?.category._id, "related");
+  // console.log(reviews, "review");
+  // console.log(relatedProducts, product?.data?.category._id, "related");
 
-  console.log(product, "from gg");
-  console.log(product?.data?.category.name);
+  // console.log(product, "from gg");
+  // console.log(product?.data?.category.name);
 
-  // const details = product?.data;
-  // console.log(details, "detalis");
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [startTime, setStartTime] = useState("");
-
-  const handleBookNow = () => {
-    setIsDialogOpen(true);
-  };
-
-  // const handleConfirm = async () => {
-  //   try {
-  //     const rentalData = {
-  //       productId: productId,
-  //       startTime: new Date(startTime),
-  //     };
-  //     const res = await createRental(rentalData).unwrap();
-  //     // console.log(res);
-  //     //res.data.paymentSession.payment_url
-  //     toast.success("Booking successful! Redirecting to payment page...");
-  //     // Redirect to payment page
-  //     window.location.href = res?.data?.paymentSession.payment_url;
-  //     // navigate('/');
-  //   } catch (error) {
-  //     toast.error("Error booking product. Please try again.");
-  //   } finally {
-  //     setIsDialogOpen(false);
-  //   }
-  // };
-
-  const handleCancel = () => {
-    setIsDialogOpen(false);
-  };
+  // // const details = product?.data;
+  // // console.log(details, "detalis");
 
   if (isLoading) {
     return (
@@ -128,10 +100,13 @@ const ProductDetails = () => {
             <p className=" mb-2">Price: ${product.data.price}</p>
 
             <Button
-              onClick={handleBookNow}
-              className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300"
+              onClick={() =>
+                // console.log(product,product.shopId, user?._id, 'before dispatch')
+                handleAddToCart(product, product?.data?.shopId, user?._id)
+              }
+              className="w-full mt-4 py-2 rounded"
             >
-              Book Now
+              Add to Cart
             </Button>
           </div>
         </div>
@@ -182,46 +157,6 @@ const ProductDetails = () => {
           ))}
         </div>
       </div>
-
-      {/* Dialog for booking */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button className="hidden">Open Dialog</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Book Bike</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Bike ID
-              </label>
-              <Input type="text" value={productId} readOnly />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Start Time
-              </label>
-              <Input
-                type="datetime-local"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-              />
-            </div>
-          </div>
-          <DialogFooter className="mt-4 flex justify-end space-x-2">
-            <Button variant="ghost" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button
-            //  onClick={handleConfirm}
-            >
-              Pay Advance to Confirm
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

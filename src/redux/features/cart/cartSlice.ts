@@ -31,26 +31,26 @@ const cartSlice = createSlice({
             state,
             action: PayloadAction<{
                 product: TProduct;
-                shopId: { _id: string; }; // Adjusted type for shopId
+                shopId: { _id: string; };
                 userId: string;
             }>
         ) => {
             const { product, shopId, userId } = action.payload;
 
             // Extract the unique shop identifier (_id or vendorId)
-            const shopIdentifier = shopId._id; // Or use shopId.vendorId if needed
+            const shopIdentifier = shopId._id;
 
-            // Log values for debugging
-            console.log("Current Shop ID:", state.currentShopId);
-            console.log("Incoming Shop ID:", shopIdentifier);
 
-            // Check for vendor conflict
+            // console.log("Current Shop ID:", state.currentShopId);
+            // console.log("Incoming Shop ID:", shopIdentifier);
+
+            // Checking for shop conflict
             if (state.currentShopId && state.currentShopId !== shopIdentifier) {
                 state.cartConflict = true;
                 return;
             }
 
-            // Check if the product already exists in the cart
+            // Checking if the product already exists in the cart
             const existingProduct = state.items.find(
                 (item) => item.productId === product._id
             );
@@ -66,7 +66,7 @@ const cartSlice = createSlice({
                     productId: product._id,
                     quantity: 1,
                     product,
-                    shopId: shopIdentifier, // Store only the unique identifier
+                    shopId: shopIdentifier,
                 });
 
                 // Set current shop ID and user ID
@@ -106,6 +106,20 @@ const cartSlice = createSlice({
                 existingProduct.quantity = quantity;
             }
         },
+        resolveConflict: (
+            state,
+            action: PayloadAction<{ replace: boolean }>
+        ) => {
+            if (action.payload.replace) {
+                // Replace cart with the new product
+                state.items = [];
+                state.cartConflict = false;
+            } else {
+                // Retain the current cart and cancel the conflict
+                state.cartConflict = false;
+            }
+        },
+
         replaceCart: (
             state,
             action: PayloadAction<{
@@ -142,6 +156,7 @@ const cartSlice = createSlice({
 
 export const {
     addToCart,
+    resolveConflict,
     removeFromCart,
     updateQuantity,
     replaceCart,
