@@ -1,6 +1,4 @@
 import { useParams } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
 import {
   useFollowShopMutation,
   useGetShopByIdQuery,
@@ -8,13 +6,14 @@ import {
 } from "@/redux/features/shop/shopApi";
 import { useGetProductsByShopIdQuery } from "@/redux/features/product/productApi";
 import { Button } from "@/components/ui/button";
-import { useAppSelector } from "@/redux/hooks";
-import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
+import useCartHandler from "@/hooks/useCartHandler";
+import { Toaster } from "react-hot-toast";
 
 const Shop = () => {
   const { shopId } = useParams();
-  const dispatch = useDispatch();
+
+  const { handleAddToCart } = useCartHandler();
 
   // Fetch shop details
   const { data: shopData, isLoading: shopLoading } =
@@ -37,7 +36,7 @@ const Shop = () => {
   const [unfollowShop, { isLoading: unfollowLoading }] =
     useUnfollowShopMutation();
 
-  console.log(user?.followingShops?.includes(shopId), "following?");
+  console.log(user, "following?");
 
   const isFollowing = user?.followingShops?.includes(shopId);
   //   console.log(first)
@@ -49,11 +48,6 @@ const Shop = () => {
       await followShop(shopId);
     }
   };
-
-  // Handle Add to Cart
-  //   const handleAddToCart = (product) => {
-  //     dispatch(addToCart(product));
-  //   };
 
   if (shopLoading) {
     return (
@@ -101,6 +95,7 @@ const Shop = () => {
 
       {/* Product List */}
       <div className="mt-8">
+        <Toaster />
         <h2 className="text-xl sm:text-2xl font-semibold mb-4">Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {products?.map((product) => (
@@ -120,11 +115,15 @@ const Shop = () => {
                 ${product.price.toFixed(2)}
               </p>
               <Button
-                // onClick={() => handleAddToCart(product)}
-                className="w-full mt-4  py-2 rounded "
+                onClick={() =>
+                  // console.log(product,product.shopId, user?._id, 'before dispatch')
+                  handleAddToCart(product, product.shopId, user?._id)
+                }
+                className="w-full mt-4 py-2 rounded"
               >
                 Add to Cart
               </Button>
+              {/* <button onClick={resetCartXD}>Reset</button> */}
             </div>
           ))}
         </div>
