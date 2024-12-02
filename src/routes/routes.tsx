@@ -15,6 +15,7 @@ import { adminPaths } from "./adminRoutes";
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import ProfilePage from "@/pages/GetMe";
 import ProductDetails from "@/pages/ProductDetails";
+import Shop from "@/pages/Shop";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/products/:productId",
         element: <ProductDetails></ProductDetails>,
+      },
+      {
+        path: "/shops/:shopId",
+        element: <Shop></Shop>,
       },
     ],
   },

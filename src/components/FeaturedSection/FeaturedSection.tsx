@@ -3,11 +3,11 @@ import Loading from "../Loading/Loading";
 import ProductCard from "../ProductCard/ProductCard";
 
 const FeaturedSection = () => {
-  const { data: products, isLoading } = useGetAllProductsQuery(undefined, {
+  const { data: products, isLoading } = useGetAllProductsQuery("", {
     pollingInterval: 30000,
   }); //rtk query polling interval for fetching latest data
 
-  console.log(products);
+  console.log(products, "featured");
 
   if (isLoading) {
     return (

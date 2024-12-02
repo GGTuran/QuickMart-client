@@ -29,7 +29,7 @@ const ProductDetails = () => {
 
   const { data: relatedProducts } = useGetAllProductsQuery({
     category: product?.data?.category._id,
-    // searchTerm: searchValue || '',
+    searchTerm: "",
   });
 
   const reviews = product?.data?.reviews;
