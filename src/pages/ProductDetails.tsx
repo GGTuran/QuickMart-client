@@ -1,6 +1,6 @@
 import Loading from "@/components/Loading/Loading";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { useState } from "react";
@@ -14,7 +14,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useGetProductByIdQuery } from "@/redux/features/product/productApi";
+import {
+  useGetAllProductsQuery,
+  useGetProductByIdQuery,
+} from "@/redux/features/product/productApi";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -24,7 +27,21 @@ const ProductDetails = () => {
     isError,
   } = useGetProductByIdQuery(productId);
 
+  const { data: relatedProducts } = useGetAllProductsQuery({
+    category: product?.data?.category._id,
+    // searchTerm: searchValue || '',
+  });
+
+  const reviews = product?.data?.reviews;
+
+  console.log(reviews, "review");
+  console.log(relatedProducts, product?.data?.category._id, "related");
+
   console.log(product, "from gg");
+  console.log(product?.data?.category.name);
+
+  // const details = product?.data;
+  // console.log(details, "detalis");
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [startTime, setStartTime] = useState("");
@@ -91,15 +108,24 @@ const ProductDetails = () => {
             />
           </div>
           <div>
-            <p className=" mb-2">Brand: {product.data.brand}</p>
-            <p className=" mb-2">Description: {product.data.description}</p>
-            <p className=" mb-2">Model: {product.data.model}</p>
-            <p className=" mb-2">
-              Available: {product.data.isAvailable ? "Yes" : "No"}
+            <p className=" mb-2">Brand: {product?.data?.category?.name}</p>
+            {/* <p className=" mb-2">Description: {product.data.description}</p> */}
+            {/* Shop Link */}
+            <p className="text-lg mb-4">
+              <span className="font-semibold">Shop:</span>{" "}
+              <Link
+                to={`/shops/${product?.data?.shopId._id}`}
+                className="text-blue-500 hover:underline"
+              >
+                {product?.data?.shopId?.name}
+              </Link>
             </p>
+            {/* <p className=" mb-2">
+              Available: {product.data.isAvailable ? "Yes" : "No"}
+            </p> */}
             {/* <span className="flex gap-2">{Rating(product.data.rating)}</span> */}
 
-            <p className=" mb-2">Price: ${product.data.pricePerHour}</p>
+            <p className=" mb-2">Price: ${product.data.price}</p>
 
             <Button
               onClick={handleBookNow}
@@ -110,6 +136,53 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* customer reviews */}
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
+        {reviews.length === 0 ? (
+          <p>No reviews yet.</p>
+        ) : (
+          reviews.map((review: any, index: any) => (
+            <div
+              key={index}
+              className="border-t border-gray-200 py-4 flex justify-center items-center gap-5"
+            >
+              <p className="font-semibold">{review.userId.name}</p>
+              <p className="text-sm">{review.comment}</p>
+              <p className="text-sm text-yellow-500">Rating: {review.rating}</p>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* relatedProducts */}
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold mb-6">Related Products</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedProducts?.data?.map((product) => (
+            <div
+              key={product._id}
+              className="p-4 border rounded-lg hover:shadow-md transition"
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="rounded-lg mb-4"
+              />
+              <h4 className="text-lg font-semibold mb-2">{product.name}</h4>
+              <p className="text-sm text-gray-600">{product.category.name}</p>
+              <Link
+                to={`/products/${product._id}`}
+                className="text-blue-500 hover:underline mt-2 block"
+              >
+                View Details
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Dialog for booking */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>

@@ -25,7 +25,7 @@ const FeaturedSection = () => {
           Latest Products
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products?.data?.slice(0, 4).map((product: { _id: any }): any => (
+          {products?.data?.map((product: { _id: any }): any => (
             <ProductCard product={product} key={product._id}></ProductCard>
           ))}
         </div>
