@@ -1,4 +1,5 @@
 // import HeroSection from "@/components/HeroSection/HeroSection";
+import FeaturedSection from "@/components/FeaturedSection/FeaturedSection";
 import Contact from "./Contact";
 // import FeaturedSection from "@/components/FeaturedSection/FeaturedSection";
 
@@ -9,7 +10,7 @@ const Home = () => {
     <div>
       {/* <HeroSection></HeroSection> */}
       {/* <Search></Search> */}
-      {/* <FeaturedSection></FeaturedSection> */}
+      <FeaturedSection></FeaturedSection>
       {/* <WheelComponent></WheelComponent> */}
       {/* <Wheel></Wheel> */}
       {/* <CompareList></CompareList> */}
