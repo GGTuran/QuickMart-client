@@ -6,8 +6,11 @@ export type TUser = {
   phone: string;
   address: string;
   role: string;
+  image?: string;
   followingShops?: string[];
   user?: any
 };
+
+
 
 
