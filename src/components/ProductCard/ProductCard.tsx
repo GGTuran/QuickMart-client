@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ProductCard = ({ product }: any) => {
-  console.log(product?.category, "category");
+  // console.log(product?.category, "category");
   return (
     <motion.div
       initial={{ scale: 1 }}

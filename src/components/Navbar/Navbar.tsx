@@ -51,7 +51,7 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a
+          {/* <a
             href="/about-us"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
@@ -62,7 +62,7 @@ const Navbar = () => {
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Contact
-          </a>
+          </a> */}
 
           {/* Conditional Links Based on Role */}
           {user && user.role === "admin" && (
@@ -85,6 +85,12 @@ const Navbar = () => {
               >
                 Users
               </a>
+              <a
+                href="/admin/category-management"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Categories
+              </a>
             </>
           )}
           {user && user.role === "customer" && (
@@ -106,6 +112,29 @@ const Navbar = () => {
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Cart
+              </a>
+            </>
+          )}
+
+          {user && user.role === "vendor" && (
+            <>
+              <a
+                href="/get-me"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Profile
+              </a>
+              <a
+                href="/vendor/manage-products"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Products
+              </a>
+              <a
+                href="/vendor/shop"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                shop
               </a>
             </>
           )}
@@ -168,7 +197,7 @@ const Navbar = () => {
             </div>
             <nav className="grid gap-4 px-4 py-6">
               {/* Common Links */}
-              <a
+              {/* <a
                 href="/about-us"
                 className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
               >
@@ -179,7 +208,7 @@ const Navbar = () => {
                 className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
               >
                 Contact
-              </a>
+              </a> */}
 
               {/* Conditional Links Based on Role */}
               {user && user.role === "admin" && (
@@ -202,9 +231,15 @@ const Navbar = () => {
                   >
                     Users
                   </a>
+                  <a
+                    href="/admin/category-management"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Categories
+                  </a>
                 </>
               )}
-              {user && user.role === "user" && (
+              {user && user.role === "customer" && (
                 <>
                   <a
                     href="/get-me"
@@ -223,6 +258,29 @@ const Navbar = () => {
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Orders
+                  </a>
+                </>
+              )}
+
+              {user && user.role === "vendor" && (
+                <>
+                  <a
+                    href="/get-me"
+                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Profile
+                  </a>
+                  <a
+                    href="/vendor/manage-products"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Products
+                  </a>
+                  <a
+                    href="/vendor/shop"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Shop
                   </a>
                 </>
               )}

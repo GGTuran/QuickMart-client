@@ -7,7 +7,7 @@ const FeaturedSection = () => {
     pollingInterval: 30000,
   }); //rtk query polling interval for fetching latest data
 
-  console.log(products, "featured");
+  // console.log(products, "featured");
 
   if (isLoading) {
     return (

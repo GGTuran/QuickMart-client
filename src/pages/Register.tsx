@@ -24,15 +24,12 @@ const Register = () => {
 
   const onSubmit = async (data: SignUpFormInputs) => {
     try {
-      await signUp({ ...data, role: "customer" }).unwrap();
-      // console.log(res)
+      await signUp(data).unwrap();
       navigate("/login", {
         state: { success: "Registration successful! Please log in." },
       });
     } catch (error) {
-      // console.error('Registration failed:', error);
       toast.error("Sign up failed");
-      navigate("/");
     }
   };
 
@@ -141,13 +138,17 @@ const Register = () => {
             >
               Role
             </label>
-            <input
-              type="text"
+            <select
               id="role"
-              value="customer"
-              readOnly
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 sm:text-sm"
-            />
+              {...register("role")}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm"
+            >
+              <option value="customer">Customer</option>
+              <option value="vendor">Vendor</option>
+            </select>
+            {errors.role && (
+              <p className="mt-2 text-sm text-red-600">{errors.role.message}</p>
+            )}
           </div>
           <Button type="submit" className="w-full">
             Sign Up
@@ -164,11 +165,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// name: string;
-// email: string;
-// password: string;
-// phone: string;
-// address?: string;
-// role: TUserRoles;
-// followingShops: Types.ObjectId[];
