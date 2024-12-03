@@ -43,6 +43,7 @@ const ProductContainer = () => {
     <div className="m-10">
       <Toaster />
 
+      {/* shop */}
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 border-b pb-4">
         <img
           src={logo}
