@@ -18,7 +18,7 @@ import {
 } from "@/redux/features/product/productApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 
-const UpdateProductModal = ({ id }) => {
+const UpdateProductModal = ({ id }: { id: string }) => {
   const { data: productData } = useGetProductByIdQuery(id);
   const product = productData?.data;
 
