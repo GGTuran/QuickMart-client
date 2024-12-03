@@ -43,14 +43,7 @@ const AddProductModal = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (
-      !name.trim() ||
-      !description.trim() ||
-      !price ||
-      !inventoryCount ||
-      !category ||
-      !image
-    ) {
+    if (!name.trim() || !price || !inventoryCount || !category || !image) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -67,7 +60,7 @@ const AddProductModal = () => {
       image,
     };
 
-    console.log(productData, "product data");
+    // console.log(productData, "product data");
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(productData));

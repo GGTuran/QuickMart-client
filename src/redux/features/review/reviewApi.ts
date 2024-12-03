@@ -45,9 +45,17 @@ const reviewApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['review'],
         }),
+        getReviewByProductId: builder.query({
+            query: (productId) => ({
+                url: `/review/product/${productId}`,
+                // /product/:productId
+                method: 'GET',
+            }),
+            providesTags: ['review'],
+        }),
 
 
     })
 })
 
-export const { useAddReviewMutation, useGetAllReviewQuery, useGetReviewByIdQuery, useUpdateReviewMutation, useDeleteReviewMutation } = reviewApi;
+export const { useAddReviewMutation, useGetAllReviewQuery, useGetReviewByIdQuery, useUpdateReviewMutation, useDeleteReviewMutation, useGetReviewByProductIdQuery } = reviewApi;

@@ -1,4 +1,5 @@
 import CategoryManagement from "@/pages/CategoryManagement";
+import ShopManagement from "@/pages/ShopManagement";
 import UserManagement from "@/pages/UserManagement";
 
 export const adminPaths = [
@@ -9,5 +10,9 @@ export const adminPaths = [
   {
     path: "category-management",
     element: <CategoryManagement></CategoryManagement>,
+  },
+  {
+    path: "shop-management",
+    element: <ShopManagement></ShopManagement>,
   },
 ];

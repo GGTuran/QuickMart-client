@@ -91,6 +91,12 @@ const Navbar = () => {
               >
                 Categories
               </a>
+              <a
+                href="/admin/shop-management"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Shops
+              </a>
             </>
           )}
           {user && user.role === "customer" && (
@@ -236,6 +242,12 @@ const Navbar = () => {
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Categories
+                  </a>
+                  <a
+                    href="/admin/shop-management"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Shops
                   </a>
                 </>
               )}

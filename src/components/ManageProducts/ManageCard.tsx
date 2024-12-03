@@ -1,20 +1,25 @@
 import toast, { Toaster } from "react-hot-toast";
-import UpdateBikeModal from "./UpdateProductModal";
 import { useDeleteProductMutation } from "@/redux/features/product/productApi";
+import UpdateProductModal from "./UpdateProductModal";
+// import { useGetReviewByProductIdQuery } from "@/redux/features/review/reviewApi";
 
 const ManageCard = ({
   _id,
-  brand,
-  cc,
   description,
   image,
-  model,
   name,
-  pricePerHour,
-  year,
-  isAvailable,
+  price,
+  reviews,
+  inventoryCount,
+  category,
 }: any) => {
   const [deleteProduct] = useDeleteProductMutation();
+  // const { data: reviewDatas } = useGetReviewByProductIdQuery(_id);
+  // console.log(reviewDatas, "reviews");
+
+  console.log(_id, "ids");
+
+  const productReviews = () => {};
 
   const removeProduct = () => {
     deleteProduct(_id);
@@ -55,41 +60,33 @@ const ManageCard = ({
 
           <div className="relative border border-gray-100  p-6">
             <h3 className="mt-4 text-lg font-medium text-black dark:text-white">
-              {brand}
+              {category.name}
             </h3>
-            <h3 className="mt-4 text-lg font-medium text-black dark:text-white">
-              {model}
-            </h3>
+
             <h3 className="mt-4 text-lg font-medium text-black dark:text-white">
               {name}
             </h3>
-            <h3 className="mt-4 text-lg font-medium text-black dark:text-white">
-              {year}
-            </h3>
-            <h3 className="mt-4 text-lg font-medium text-black dark:text-white">
-              {cc}
-            </h3>
 
-            <p className="mt-1.5 text-sm font-medium text-black dark:text-white">
-              {description}
-            </p>
+            {/* <p className="mt-1.5 text-sm font-medium text-black dark:text-white">
+              {reviews}
+            </p> */}
 
             <div className="mt-4 flex justify-between items-center">
               <div>
                 <p className="text-black font-medium dark:text-white">
                   {" "}
-                  ${pricePerHour}
+                  ${price}
                 </p>
                 <p className="text-black mb-2 dark:text-white">
-                  Available: {isAvailable ? "Yes" : "No"}
+                  Available: {inventoryCount}
                 </p>
               </div>
               <div></div>
             </div>
             <div className="mt-4 flex justify-between items-center">
               {/* component for update modal */}
-              {/* <UpdateProductModal productId={_id}></UpdateProductModal> */}
-              <UpdateBikeModal bikeId={_id}></UpdateBikeModal>
+              <UpdateProductModal bikeId={_id}></UpdateProductModal>
+
               <button
                 onClick={removeProduct}
                 className="px-4 py-2 bg-red-300 text-black rounded-lg hover:bg-red-500 transition-colors duration-300"
