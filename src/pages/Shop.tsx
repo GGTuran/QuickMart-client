@@ -11,6 +11,7 @@ import ProductList from "@/components/Shop/ProductList";
 
 const Shop = () => {
   const { shopId } = useParams();
+  console.log(shopId);
 
   // Fetch shop details
   const { data: shopData, isLoading: shopLoading } =

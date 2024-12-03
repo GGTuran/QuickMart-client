@@ -17,6 +17,8 @@ import ProfilePage from "@/pages/GetMe";
 import ProductDetails from "@/pages/ProductDetails";
 import Shop from "@/pages/Shop";
 import { vendorPaths } from "./vendorRoutes";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +96,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Register></Register>,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword></ForgotPassword>,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword></ResetPassword>,
   },
 ]);
 

@@ -20,7 +20,7 @@ const ProductDetails = () => {
   });
 
   const user = userData?.data;
-  console.log(user, "user");
+  // console.log(user, "user");
 
   const {
     data: product,
@@ -35,7 +35,7 @@ const ProductDetails = () => {
 
   const reviews = product?.data?.reviews;
   const shopId = product?.data?.shopId;
-  console.log(shopId);
+  // console.log(shopId);
 
   // console.log(reviews, "review");
   // console.log(relatedProducts, product?.data?.category._id, "related");

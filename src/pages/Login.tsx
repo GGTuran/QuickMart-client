@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginFormInputs } from "@/schema/loginSchema";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom"; // Add Link for navigation
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,7 +38,6 @@ const Login = () => {
         });
       }
     } catch (error) {
-      // console.error('Login failed:', error);
       toast.error("Login failed. Please check your credentials and try again.");
     }
   };
@@ -88,12 +88,31 @@ const Login = () => {
           <Button type="submit" className="w-full">
             Login
           </Button>
+
           {error && (
             <p className="mt-2 text-sm text-red-600">
               Login failed. Please try again.
             </p>
           )}
         </form>
+
+        {/* Forgot Password and Don't have an account links */}
+        <div className="flex justify-between items-center">
+          <div className="mt-4 text-sm text-center">
+            <Link
+              to="/forgot-password"
+              className="text-primary hover:underline"
+            >
+              <p className="text-blue-500">Forgot Password?</p>
+            </Link>
+          </div>
+          <div className="mt-2 text-sm text-center">
+            {/* <span>Don't have an account? </span> */}
+            <Link to="/signup" className="text-primary hover:underline">
+              <p className="text-blue-500">Sign Up</p>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,74 +5,70 @@ import {
   addToCart,
   replaceCart,
   cancelCartUpdate,
-  resolveConflict,
 } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/product.interface";
+import { useState } from "react";
 
 const useCartHandler = () => {
   const dispatch = useDispatch();
-  const { currentShopId, cartConflict } = useSelector(
-    (state: RootState) => state.cart
-  );
+  const { currentShopId } = useSelector((state: RootState) => state.cart);
 
-  const handleAddToCart = (product: TProduct, shopId: any, userId: string) => {
-    console.log("Current Shop ID:", currentShopId);
-    console.log("Product Shop ID:", shopId);
+  const [showModal, setShowModal] = useState(false);
+  const [conflictProduct, setConflictProduct] = useState<TProduct | null>(null);
+  const [conflictShopId, setConflictShopId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  const handleAddToCart = (product: TProduct, shopId: any, user: string) => {
     if (currentShopId && currentShopId !== shopId?._id) {
-      // Conflict detected, notify user
-      toast.error("You can only add products from one shop at a time!");
-      dispatch(cancelCartUpdate());
+      toast.error("err");
+      setConflictProduct(product);
+      setConflictShopId(shopId._id);
+      setUserId(user);
+      console.log("Opening modal");
+      setShowModal(true); // Should trigger modal to show
       return;
     }
 
-    // Add item to cart
-    dispatch(
-      addToCart({
-        product,
-        shopId,
-        userId,
-      })
-    );
-    toast.success(`Product added to the cart!`);
-  };
-
-  const handleReplaceCart = (
-    product: TProduct,
-    shopId: string,
-    userId: string
-  ) => {
-    // Replace the cart with the new item
-    dispatch(
-      replaceCart({
-        product,
-        shopId,
-        userId,
-      })
-    );
-    toast.success("Cart replaced with the new product!");
+    dispatch(addToCart({ product, shopId, userId: user }));
+    toast.success("Product added to the cart!");
   };
 
   const handleResolveConflict = (replace: boolean) => {
-    // Resolve the conflict: Replace the cart or keep the current cart
-    dispatch(resolveConflict({ replace }));
-    if (replace) {
-      toast.success("Cart replaced with the new items!");
+    if (replace && conflictProduct && conflictShopId && userId) {
+      dispatch(
+        replaceCart({
+          product: conflictProduct,
+          shopId: conflictShopId,
+          userId,
+        })
+      );
+      toast.success("Cart replaced with the new product!");
     } else {
-      toast.success("Cart update canceled.");
+      toast.success("Current cart retained.");
     }
+
+    // Reset conflict state and close modal
+    setShowModal(false);
+    setConflictProduct(null);
+    setConflictShopId(null);
+    setUserId(null);
   };
 
-  const handleCancelConflict = () => {
-    // Cancel the cart update
-    dispatch(cancelCartUpdate());
-    toast.success("Cart update canceled.");
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setConflictProduct(null);
+    setConflictShopId(null);
+    setUserId(null);
   };
 
   return {
     handleAddToCart,
-    handleReplaceCart,
     handleResolveConflict,
-    handleCancelConflict,
+    handleCloseModal,
+    showModal,
+    conflictProduct,
+    conflictShopId,
+    userId,
   };
 };
 

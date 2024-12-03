@@ -23,7 +23,7 @@ const shopApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: { shopId },
             }),
-            invalidatesTags: ["shops"],
+            invalidatesTags: ["shops", "users"],
         }),
         unfollowShop: builder.mutation({
             query: (shopId) => ({
