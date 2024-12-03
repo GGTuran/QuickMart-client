@@ -6,11 +6,23 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { useGetProfileQuery } from "@/redux/features/user/userApi";
+import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
 
 const Cart = () => {
+  const { data: userData } = useGetProfileQuery("", {
+    pollingInterval: 30000,
+  });
+
+  const user = userData?.data;
+
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.items);
   const navigate = useNavigate();
+  const [createOrder] = useCreateOrderMutation();
+
+  const [isCouponApplied, setIsCouponApplied] = useState(false); // Track if coupon is applied
 
   console.log(cart, "cart");
 
@@ -28,17 +40,44 @@ const Cart = () => {
 
   // Calculating total price with 15% VAT
   const calculateTotal = () => {
-    return (
-      cart.reduce((total, item) => {
-        return total + item.product.price * item.quantity;
-      }, 0) * 1.15
-    );
+    const total = cart.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
+    const totalWithVAT = total * 1.15;
+    return isCouponApplied ? totalWithVAT * 0.8 : totalWithVAT; // Apply 20% discount if coupon is applied
+  };
+
+  // Apply coupon
+  const handleApplyCoupon = () => {
+    if (isCouponApplied) {
+      toast.error("Coupon has already been applied!");
+    } else {
+      setIsCouponApplied(true);
+      toast.success("Coupon applied! 20% discount activated.");
+    }
   };
 
   // Navigate to checkout page
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (cart.every((item) => item.product.inventoryCount >= item.quantity)) {
-      navigate("/checkout");
+      try {
+        const orderPayload = {
+          userId: user?._id, // Replace with dynamic userId
+          products: cart.map((item) => item.productId),
+          shopId: cart[0].shopId,
+          paymentStatus: "pending",
+          orderDate: new Date().toISOString(),
+        };
+        console.log(orderPayload, "orderpayload");
+        const response = await createOrder(orderPayload).unwrap();
+        console.log(response, "res");
+        toast.success("Order created successfully!");
+        window.location.href = response?.data?.paymentSession.payment_url;
+        // navigate("/checkout-success"); // Navigate to success page or other desired location
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to create order. Please try again.");
+      }
     } else {
       toast.error("Some items are out of stock");
     }
@@ -128,22 +167,38 @@ const Cart = () => {
           <p className="text-center text-gray-500">Your cart is empty.</p>
         )}
         {cart.length > 0 && (
-          <div className="mt-8">
+          <div className="mt-8 space-y-4">
             <h2 className="text-xl font-medium">
               Total: ${calculateTotal().toFixed(2)}
             </h2>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleCheckout}
-              disabled={cart.some(
-                (item) => item.product.inventoryCount < item.quantity
-              )}
-              className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300"
-            >
-              Proceed to Checkout
-            </motion.button>
+            <div className="flex  gap-2">
+              {" "}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleApplyCoupon}
+                disabled={isCouponApplied}
+                className={`px-4 py-2 ${
+                  isCouponApplied
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-green-300 text-black hover:bg-green-500"
+                } rounded-lg transition-colors duration-300`}
+              >
+                {isCouponApplied ? "Coupon Applied" : "Apply Coupon"}
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleCheckout}
+                disabled={cart.some(
+                  (item) => item.product.inventoryCount < item.quantity
+                )}
+                className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300"
+              >
+                Proceed to Checkout
+              </motion.button>
+            </div>
           </div>
         )}
       </div>

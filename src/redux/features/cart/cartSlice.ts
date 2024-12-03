@@ -151,6 +151,7 @@ const cartSlice = createSlice({
             state.currentShopId = null;
             state.userId = null;
         },
+
     },
 });
 
