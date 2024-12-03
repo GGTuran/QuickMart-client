@@ -15,6 +15,7 @@ const ProductContainer = () => {
 
   const { data: shopByVendor } = useGetShopByVendorIdQuery(person?._id);
   const shop = shopByVendor?.data;
+  console.log(shop, "shop");
 
   // Fetching data through RTK Query
   const { data: productsData, isLoading } = useGetProductsByShopIdQuery(
@@ -28,6 +29,8 @@ const ProductContainer = () => {
 
   console.log(products, "products");
 
+  const { name, logo, description } = shop || {};
+
   if (isLoading) {
     return (
       <div>
@@ -39,6 +42,20 @@ const ProductContainer = () => {
   return (
     <div className="m-10">
       <Toaster />
+
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 border-b pb-4">
+        <img
+          src={logo}
+          alt={`${name} logo`}
+          className="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-full border"
+        />
+        <div className="flex-1">
+          <h1 className="text-2xl sm:text-4xl font-bold">{name}</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">
+            {description}
+          </p>
+        </div>
+      </div>
 
       {/* Add Product Button */}
       <div className="flex justify-between mb-5">

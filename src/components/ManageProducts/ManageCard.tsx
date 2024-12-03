@@ -17,7 +17,7 @@ const ManageCard = ({
   // const { data: reviewDatas } = useGetReviewByProductIdQuery(_id);
   // console.log(reviewDatas, "reviews");
 
-  console.log(_id, "ids");
+  // console.log(_id, "ids");
 
   const productReviews = () => {};
 
@@ -85,7 +85,7 @@ const ManageCard = ({
             </div>
             <div className="mt-4 flex justify-between items-center">
               {/* component for update modal */}
-              <UpdateProductModal bikeId={_id}></UpdateProductModal>
+              <UpdateProductModal id={_id}></UpdateProductModal>
 
               <button
                 onClick={removeProduct}
