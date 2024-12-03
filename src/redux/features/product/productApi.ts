@@ -24,38 +24,38 @@ const productApi = baseApi.injectEndpoints({
             }),
             providesTags: ['products'],
         }),
-        // addBike: builder.mutation({
-        //     query:(bikeInfo) => {
-        //         // console.log('from base api=>', bikeInfo);
-        //         return{
-        //             url: `/bikes`,
-        //             method: 'POST',
-        //             body: bikeInfo,
-        //         }
-        //     },
-        //     invalidatesTags: ['bikes'],
-        // }),
-        // updateBike: builder.mutation({
-        //     query: ({id, bikeInfo}) => {
-        //         // console.log('from base api', id,bikeInfo)
-        //         return {
-        //             url: `/bikes/${id}`,
-        //             method: 'PATCH',
-        //             body: bikeInfo,
-        //         };
-        //     },
-        //     invalidatesTags: ['bikes']
-        // }),
-        // deleteBike: builder.mutation({
-        //     query: (id) => ({
-        //         url: `/bikes/${id}`,
-        //         method: 'DELETE',
-        //     }),
-        //     invalidatesTags: ['bikes'],
-        // }),
+        addProduct: builder.mutation({
+            query: (productInfo) => {
+                // console.log('from base api=>', bikeInfo);
+                return {
+                    url: `/product`,
+                    method: 'POST',
+                    body: productInfo,
+                }
+            },
+            invalidatesTags: ['products'],
+        }),
+        updateProduct: builder.mutation({
+            query: ({ id, productInfo }) => {
+                // console.log('from base api', id,productInfo)
+                return {
+                    url: `/product/${id}`,
+                    method: 'PATCH',
+                    body: productInfo,
+                };
+            },
+            invalidatesTags: ['products']
+        }),
+        deleteProduct: builder.mutation({
+            query: (id) => ({
+                url: `/product/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['products'],
+        }),
 
 
     })
 })
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery, useGetProductsByShopIdQuery } = productApi;
+export const { useGetAllProductsQuery, useGetProductByIdQuery, useGetProductsByShopIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation } = productApi;

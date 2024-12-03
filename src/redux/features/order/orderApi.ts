@@ -10,11 +10,24 @@ const orderApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["order"], // Adjust tags if needed
         }),
-
+        getOrdersByUserId: builder.query({
+            query: (userId) => ({
+                url: `/user/${userId}`,
+                method: 'GET',
+            }),
+            providesTags: ['order'],
+        }),
+        getOrdersByShopId: builder.query({
+            query: (shopId) => ({
+                url: `/shop/${shopId}`,
+                method: 'GET',
+            }),
+            providesTags: ['order'],
+        }),
 
 
 
     })
 })
 
-export const { useCreateOrderMutation } = orderApi;
+export const { useCreateOrderMutation, useGetOrdersByUserIdQuery, useGetOrdersByShopIdQuery } = orderApi;
