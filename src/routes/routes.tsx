@@ -16,6 +16,7 @@ import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import ProfilePage from "@/pages/GetMe";
 import ProductDetails from "@/pages/ProductDetails";
 import Shop from "@/pages/Shop";
+import { vendorPaths } from "./vendorRoutes";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,16 @@ const router = createBrowserRouter([
     ),
     errorElement: <Error></Error>,
     children: routeGenerator(userPaths),
+  },
+  {
+    path: "/vendor",
+    element: (
+      <ProtectedRoute role="vendor">
+        <App></App>
+      </ProtectedRoute>
+    ),
+    errorElement: <Error></Error>,
+    children: routeGenerator(vendorPaths),
   },
   {
     path: "/get-me",
