@@ -5,9 +5,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"; // Import Table components
+} from "@/components/ui/table";
 
-const CustomerReviews = ({ reviews }) => {
+const CustomerReviews = ({ reviews }: { reviews: any }) => {
   console.log(reviews, "fetched reviews");
 
   return (
@@ -28,7 +28,7 @@ const CustomerReviews = ({ reviews }) => {
           </TableHeader>
 
           <TableBody>
-            {reviews?.map((review, index) => (
+            {reviews?.map((review: any, index: any) => (
               <TableRow key={index}>
                 <TableCell>{review?.userId?.name}</TableCell>
                 <TableCell>{review?.comment}</TableCell>

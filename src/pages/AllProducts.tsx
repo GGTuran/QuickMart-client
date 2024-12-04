@@ -104,7 +104,7 @@ const AllProducts = () => {
                 All Categories
               </DropdownMenuRadioItem>
               {!isCategoriesLoading &&
-                categories?.data?.map((cat) => (
+                categories?.data?.map((cat: any) => (
                   <DropdownMenuRadioItem key={cat._id} value={cat._id}>
                     {cat.name}
                   </DropdownMenuRadioItem>
@@ -141,7 +141,7 @@ const AllProducts = () => {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {currentPageProducts.map((product) => (
+        {currentPageProducts.map((product: any) => (
           <ProductCard product={product} key={product._id} />
         ))}
       </div>
@@ -154,7 +154,7 @@ const AllProducts = () => {
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
+                // disabled={currentPage === 1}
               />
             </PaginationItem>
 
@@ -181,7 +181,7 @@ const AllProducts = () => {
             <PaginationItem>
               <PaginationNext
                 onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
+                // disabled={currentPage === totalPages}
               />
             </PaginationItem>
           </PaginationContent>

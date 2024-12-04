@@ -1,11 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import toast from "react-hot-toast";
-import {
-  addToCart,
-  replaceCart,
-  cancelCartUpdate,
-} from "@/redux/features/cart/cartSlice";
+import { addToCart, replaceCart } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/product.interface";
 import { useState } from "react";
 import ConflictModal from "@/components/Conflict/ConflictModal";

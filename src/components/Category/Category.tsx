@@ -54,7 +54,7 @@ const Category = () => {
   }
 
   return (
-    <div className="bg-white px-5 mb-10">
+    <div className=" px-5 mb-10">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-center text-3xl lg:text-4xl font-medium my-8 lg:my-12">
           Categories

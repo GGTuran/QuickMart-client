@@ -1,7 +1,6 @@
 import MountainIcon from "@/assets/icons/MountainIcon";
 import { Link } from "react-router-dom";
 
-
 const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-800">
@@ -14,13 +13,10 @@ const Footer = () => {
           <div className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
             <div className="col-span-2">
               <div>
-                <h2 className="text-2xl font-bold ">
-                  Get the latest news!
-                </h2>
+                <h2 className="text-2xl font-bold ">Get the latest news!</h2>
 
                 <p className="mt-4 ">
-                  Join our community of Bike enthusiasts and embrace a
-                  lifestyle of excellence.
+                  Join our community and embrace a lifestyle of excellence.
                 </p>
               </div>
             </div>
@@ -52,50 +48,35 @@ const Footer = () => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     1on1 Coaching{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Company Review{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Accounts Review{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     HR Consulting{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     SEO Optimisation{" "}
                   </a>
@@ -108,30 +89,21 @@ const Footer = () => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <Link
-                    to="/about-us"
-                    className=" transition hover:opacity-75"
-                  >
+                  <Link to="/about-us" className=" transition hover:opacity-75">
                     {" "}
                     About{" "}
                   </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Meet the Team{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Accounts Review{" "}
                   </a>
@@ -144,30 +116,21 @@ const Footer = () => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Contact{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     FAQs{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Live Chat{" "}
                   </a>
@@ -180,40 +143,28 @@ const Footer = () => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Accessibility{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Returns Policy{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Refund Policy{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Hiring Statistics{" "}
                   </a>
@@ -226,20 +177,14 @@ const Footer = () => {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     Marketing Calendar{" "}
                   </a>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
-                    className=" transition hover:opacity-75"
-                  >
+                  <a href="#" className=" transition hover:opacity-75">
                     {" "}
                     SEO Infographics{" "}
                   </a>
@@ -375,30 +320,21 @@ const Footer = () => {
 
             <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
               <li>
-                <a
-                  href="#"
-                  className=" transition hover:opacity-75"
-                >
+                <a href="#" className=" transition hover:opacity-75">
                   {" "}
                   Terms & Conditions{" "}
                 </a>
               </li>
 
               <li>
-                <a
-                  href="#"
-                  className=" transition hover:opacity-75"
-                >
+                <a href="#" className=" transition hover:opacity-75">
                   {" "}
                   Privacy Policy{" "}
                 </a>
               </li>
 
               <li>
-                <a
-                  href="#"
-                  className=" transition hover:opacity-75"
-                >
+                <a href="#" className=" transition hover:opacity-75">
                   {" "}
                   Cookies{" "}
                 </a>

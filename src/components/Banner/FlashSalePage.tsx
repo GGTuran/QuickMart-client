@@ -14,7 +14,7 @@ const FlashSalePage = () => {
         Flash Sale Deals 🛒
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products?.data.map((product) => (
+        {products?.data.map((product: any) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>

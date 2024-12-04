@@ -2,7 +2,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDeleteProductMutation } from "@/redux/features/product/productApi";
 import UpdateProductModal from "./UpdateProductModal";
 import { useGetReviewByProductIdQuery } from "@/redux/features/review/reviewApi";
-import { useState } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -14,7 +13,7 @@ import {
 
 const ManageCard = ({
   _id,
-  description,
+
   image,
   name,
   price,
@@ -23,7 +22,6 @@ const ManageCard = ({
 }: any) => {
   const [deleteProduct] = useDeleteProductMutation();
   const { data: reviewData } = useGetReviewByProductIdQuery(_id);
-  const [showReviews, setShowReviews] = useState(false); // State to handle reviews modal visibility
   const reviews = reviewData?.data;
 
   const removeProduct = () => {

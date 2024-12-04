@@ -6,10 +6,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/ui/pagination";
 import { Link, useParams } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
   useGetAllProductsQuery,
@@ -44,7 +43,6 @@ const ProductDetails = () => {
   });
 
   const reviews = product?.data?.reviews;
-  const shopId = product?.data?.shopId;
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -150,7 +148,7 @@ const ProductDetails = () => {
       <div className="mt-12">
         <h3 className="text-2xl font-bold mb-6">Related Products</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentPageProducts.map((product) => (
+          {currentPageProducts.map((product: any) => (
             <div
               key={product?._id}
               className="p-4 border rounded-lg hover:shadow-md transition"

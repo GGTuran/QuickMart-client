@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import Loading from "@/components/Loading/Loading";

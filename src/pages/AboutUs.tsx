@@ -32,13 +32,17 @@ const AboutUs = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
             <div>
               <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-3xl">
-                About Home Of Bikes
+                About QuickMart
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Home Of Bikes is a leading retailer of high-quality bikes,
-                founded in 2010. With over 14 years of experience in the
-                industry, we pride ourselves on our expertise and commitment to
-                providing our customers with the best products and services.
+                QuickMart is a trusted online retailer offering a wide range of
+                premium products, established in 2015. With nearly a decade of
+                experience, we have become a go-to destination for customers
+                seeking high-quality items across various categories. Our
+                expertise, combined with our dedication to customer
+                satisfaction, ensures that QuickMart remains a leader in
+                e-commerce, providing exceptional products and services to
+                shoppers worldwide.
               </p>
             </div>
             <div>
@@ -46,21 +50,25 @@ const AboutUs = () => {
                 Our Mission and Vision
               </h3>
               <p className="mt-4 text-muted-foreground">
-                Our mission to provide a seamless and intuitive bike management
-                experience that empowers bike rental businesses with
-                comprehensive tools for managing their fleet, streamlining
-                bookings, and enhancing customer satisfaction. We are dedicated
-                to delivering user-friendly technology that simplifies
-                operations, drives efficiency, and fosters a community of bike
-                enthusiasts.
+                Our mission at QuickMart is to offer a seamless and convenient
+                shopping experience that empowers our customers to find and
+                purchase the best products online. We aim to provide an
+                extensive range of high-quality goods, backed by reliable
+                customer service and fast delivery. With user-friendly
+                technology and an easy-to-navigate platform, QuickMart is
+                committed to helping customers save time and shop smarter,
+                enhancing their overall experience.
               </p>
               <p className="mt-4 text-muted-foreground">
-                Our vision is to be the leading platform for bike rental
-                management, transforming the industry with innovative solutions
-                that set new standards for operational excellence, customer
-                engagement, and sustainability. Our vision is to create a global
-                ecosystem where businesses and riders alike can thrive, enjoying
-                a connected, efficient, and eco-friendly biking experience.
+                Our vision is to be the go-to destination for all online
+                shopping needs, setting new standards in the e-commerce industry
+                with innovative solutions. We aspire to create a global
+                marketplace where customers can find top-tier products at
+                competitive prices, enjoy smooth transactions, and experience
+                world-class service. At QuickMart, we strive to lead the way in
+                customer satisfaction, operational excellence, and environmental
+                responsibility, building a sustainable future for both
+                businesses and shoppers alike.
               </p>
             </div>
           </div>
@@ -93,11 +101,6 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* History section */}
-      <section className="bg-background py-12 md:py-20 lg:py-24">
-        {/* <HistoryMilestones></HistoryMilestones> */}
-      </section>
-
       {/* Contact Information */}
       <div>
         <Contact />
@@ -120,11 +123,11 @@ const AboutUs = () => {
                   // allowFullScreen=""
                   aria-hidden="false"
                   // tabIndex="0"
-                  title="Acme Sports Store Location"
+                  title="QuickMart Store Location"
                 />
               </div>
               <div className="p-4">
-                <p className="font-medium text-foreground">Home Of Sports</p>
+                <p className="font-medium text-foreground">QuickMart</p>
                 <p className="mt-1 text-muted-foreground">
                   2 no R.C.Church road,Patherghata Chattogram, Bangladesh
                 </p>

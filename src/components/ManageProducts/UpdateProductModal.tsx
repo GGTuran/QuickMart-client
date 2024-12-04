@@ -171,7 +171,7 @@ const UpdateProductModal = ({ id }: { id: string }) => {
                   className="col-span-3 border rounded-md p-2"
                 >
                   <option value="">Select Category</option>
-                  {categories?.data?.map((category) => (
+                  {categories?.data?.map((category: any) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
                     </option>

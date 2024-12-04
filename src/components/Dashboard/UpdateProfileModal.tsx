@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateProfileMutation } from "@/redux/features/user/userApi";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useState, FormEvent } from "react";
 
 const UpdateProfileModal = () => {

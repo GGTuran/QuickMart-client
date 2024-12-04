@@ -3,7 +3,6 @@ import {
   updateQuantity,
 } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
@@ -19,7 +18,6 @@ const Cart = () => {
 
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.items);
-  const navigate = useNavigate();
   const [createOrder] = useCreateOrderMutation();
 
   const [isCouponApplied, setIsCouponApplied] = useState(false); // Track if coupon is applied

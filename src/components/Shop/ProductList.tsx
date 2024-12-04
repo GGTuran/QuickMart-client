@@ -42,7 +42,7 @@ const ProductList = ({ shopId }: { shopId: any }) => {
       <Toaster />
       <h2 className="text-xl sm:text-2xl font-semibold mb-4">Products</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {currentPageProducts?.map((product) => (
+        {currentPageProducts?.map((product: any) => (
           <div
             key={product._id}
             className="border rounded-lg p-4 shadow-sm hover:shadow-md transition"

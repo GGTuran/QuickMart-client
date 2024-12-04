@@ -11,10 +11,9 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { TProduct } from "@/types/product.interface";
 
 interface ProductCardProps {
-  product: TProduct;
+  product: any;
 }
 
 const CompareCard: React.FC<ProductCardProps> = ({ product }) => {

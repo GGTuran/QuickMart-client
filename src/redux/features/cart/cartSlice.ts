@@ -63,7 +63,7 @@ const cartSlice = createSlice({
             } else {
                 // Add new product to the cart
                 state.items.push({
-                    productId: product._id,
+                    productId: product._id as string,
                     quantity: 1,
                     product,
                     shopId: shopIdentifier,
@@ -131,7 +131,7 @@ const cartSlice = createSlice({
             const { product, shopId, userId } = action.payload;
 
             state.items = [
-                { productId: product._id, quantity: 1, product, shopId },
+                { productId: product._id as string, quantity: 1, product, shopId },
             ];
             state.currentShopId = shopId;
             state.cartConflict = false;

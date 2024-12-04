@@ -12,11 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   useGetShopByIdQuery,
-  useGetShopByVendorIdQuery,
   useUpdateShopMutation,
 } from "@/redux/features/shop/shopApi";
 
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useState, FormEvent } from "react";
 import { TShop } from "@/types/shop.interface";
 

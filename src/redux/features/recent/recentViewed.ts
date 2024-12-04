@@ -15,9 +15,9 @@ const recentlyViewedSlice = createSlice({
     reducers: {
         addToRecentlyViewed: (state, action: PayloadAction<TProduct>) => {
             // Check if the product is already in the recentlyViewed list
-            const existingProductIndex = state.products.findIndex(
-                (product) => product._id === action.payload._id
-            );
+            // const existingProductIndex = state.products.findIndex(
+            //     (product) => product._id === action.payload._id
+            // );
 
             // If the product is found, remove it (to avoid duplication)
             //   if (existingProductIndex !== -1) {
