@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { useGetAllProductsQuery } from "@/redux/features/product/productApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
@@ -10,11 +10,19 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { useSearchParams } from "react-router-dom";
 
 const AllProducts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("all"); // Default to 'all'
+  const [searchParams] = useSearchParams();
+
+  // Fetch category from query params on initial render
+  useEffect(() => {
+    const initialCategory = searchParams.get("category") || "all";
+    setCategory(initialCategory);
+  }, [searchParams]);
 
   // Fetch products
   const { data: productsData } = useGetAllProductsQuery({

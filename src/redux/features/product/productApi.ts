@@ -10,6 +10,14 @@ const productApi = baseApi.injectEndpoints({
             }),
             providesTags: ['products'],
         }),
+        getHighPricedProducts: builder.query({
+            query: () => ({
+                url: `/product/high`,
+                method: 'GET',
+
+            }),
+            providesTags: ['products'],
+        }),
         getProductById: builder.query({
             query: (id) => ({
                 url: `/product/${id}`,
@@ -58,4 +66,4 @@ const productApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery, useGetProductsByShopIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation } = productApi;
+export const { useGetAllProductsQuery, useGetProductByIdQuery, useGetProductsByShopIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useGetHighPricedProductsQuery } = productApi;

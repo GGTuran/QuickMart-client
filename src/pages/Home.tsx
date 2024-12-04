@@ -1,19 +1,12 @@
-// import HeroSection from "@/components/HeroSection/HeroSection";
 import FeaturedSection from "@/components/FeaturedSection/FeaturedSection";
 import Contact from "./Contact";
-// import FeaturedSection from "@/components/FeaturedSection/FeaturedSection";
-
-// import Search from "@/components/SearchBar/Search";
+import Category from "@/components/Category/Category";
 
 const Home = () => {
   return (
     <div>
-      {/* <HeroSection></HeroSection> */}
-      {/* <Search></Search> */}
       <FeaturedSection></FeaturedSection>
-      {/* <WheelComponent></WheelComponent> */}
-      {/* <Wheel></Wheel> */}
-      {/* <CompareList></CompareList> */}
+      <Category></Category>
 
       <Contact></Contact>
     </div>

@@ -1,6 +1,8 @@
 import { useGetAllProductsQuery } from "@/redux/features/product/productApi";
 import Loading from "../Loading/Loading";
 import ProductCard from "../ProductCard/ProductCard";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 
 const FeaturedSection = () => {
   const { data: products, isLoading } = useGetAllProductsQuery("", {
@@ -25,9 +27,14 @@ const FeaturedSection = () => {
           Latest Products
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products?.data?.map((product: { _id: any }): any => (
+          {products?.data?.slice(0, 4)?.map((product: { _id: any }): any => (
             <ProductCard product={product} key={product._id}></ProductCard>
           ))}
+        </div>
+        <div className="flex items-center justify-center m-4">
+          <Link to="/all-products">
+            <Button>See all</Button>
+          </Link>
         </div>
       </div>
     </section>
