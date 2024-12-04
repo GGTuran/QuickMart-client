@@ -14,6 +14,8 @@ import { useAppDispatch } from "@/redux/hooks";
 import { addToRecentlyViewed } from "@/redux/features/recent/recentViewed";
 import { TProduct } from "@/types/product.interface";
 import { useDispatch } from "react-redux";
+import CustomerReviews from "@/components/ProductCard/CustomerReviews";
+import AddReviewModal from "@/components/Review/AddReviewModal";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -122,30 +124,13 @@ const ProductDetails = () => {
             >
               Add to Cart
             </Button>
+            <AddReviewModal productId={product?.data?._id} />
           </div>
         </div>
       </div>
 
       {/* customer reviews */}
-      <div className="mt-12">
-        <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
-        {reviews?.length === 0 ? (
-          <p>No reviews yet.</p>
-        ) : (
-          reviews?.map((review: any, index: any) => (
-            <div
-              key={index}
-              className="border-t border-gray-200 py-4 flex justify-center items-center gap-5"
-            >
-              <p className="font-semibold">{review?.userId?.name}</p>
-              <p className="text-sm">{review?.comment}</p>
-              <p className="text-sm text-yellow-500">
-                Rating: {review?.rating}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+      <CustomerReviews reviews={reviews} />
 
       {/* relatedProducts */}
       <div className="mt-12">

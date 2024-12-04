@@ -25,7 +25,7 @@ const reviewApi = baseApi.injectEndpoints({
                     body: reviewInfo,
                 }
             },
-            invalidatesTags: ['review'],
+            invalidatesTags: ['products'],
         }),
         updateReview: builder.mutation({
             query: ({ id, reviewInfo }) => {
