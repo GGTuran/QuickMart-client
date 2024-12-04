@@ -11,12 +11,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { useSearchParams } from "react-router-dom";
+import {
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const AllProducts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("all"); // Default to 'all'
   const [searchParams] = useSearchParams();
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // Number of products to display per page
 
   // Fetch category from query params on initial render
   useEffect(() => {
@@ -43,6 +54,18 @@ const AllProducts = () => {
   } else if (sortOrder === "highToLow") {
     products = [...products].sort((a, b) => b.price - a.price);
   }
+
+  // Handle product pagination
+  const totalItems = products.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageProducts = products.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -116,9 +139,33 @@ const AllProducts = () => {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {currentPageProducts.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center space-x-2 mt-6">
+        <Pagination>
+          <PaginationPrevious
+            onClick={() => handlePageChange(currentPage - 1)}
+            // disabled={currentPage === 1}
+          />
+          {[...Array(totalPages)].map((_, index) => (
+            <PaginationItem key={index}>
+              <PaginationLink
+                isActive={currentPage === index + 1}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationNext
+            onClick={() => handlePageChange(currentPage + 1)}
+            // disabled={currentPage === totalPages}
+          />
+        </Pagination>
       </div>
     </div>
   );
