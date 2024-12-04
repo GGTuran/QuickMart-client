@@ -120,6 +120,12 @@ const Navbar = () => {
               >
                 Cart
               </a>
+              <a
+                href="/customer/orders"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Orders
+              </a>
             </>
           )}
 
@@ -269,7 +275,7 @@ const Navbar = () => {
                   </a>
 
                   <a
-                    href="/users/my-orders"
+                    href="/customer/my-orders"
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Orders

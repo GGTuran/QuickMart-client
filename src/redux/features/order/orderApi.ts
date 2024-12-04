@@ -12,7 +12,7 @@ const orderApi = baseApi.injectEndpoints({
         }),
         getOrdersByUserId: builder.query({
             query: (userId) => ({
-                url: `/user/${userId}`,
+                url: `/order/user/${userId}`,
                 method: 'GET',
             }),
             providesTags: ['order'],
