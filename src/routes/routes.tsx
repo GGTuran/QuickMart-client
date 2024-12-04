@@ -20,6 +20,7 @@ import { vendorPaths } from "./vendorRoutes";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import AllProducts from "@/pages/AllProducts";
+import FlashSalePage from "@/components/Banner/FlashSalePage";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/shops/:shopId",
         element: <Shop></Shop>,
+      },
+      {
+        path: "/flash-sale",
+        element: <FlashSalePage></FlashSalePage>,
       },
     ],
   },
