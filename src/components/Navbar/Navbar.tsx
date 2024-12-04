@@ -79,12 +79,12 @@ const Navbar = () => {
               >
                 Profile
               </a>
-              <a
+              {/* <a
                 href="/admin/manage-vendors"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Manage Vendors
-              </a>
+              </a> */}
               <a
                 href="/admin/user-management"
                 className="text-sm font-medium transition-colors hover:text-primary"
@@ -102,6 +102,12 @@ const Navbar = () => {
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Shops
+              </a>
+              <a
+                href="/admin/all-orders"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Orders
               </a>
             </>
           )}
@@ -148,6 +154,12 @@ const Navbar = () => {
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 shop
+              </a>
+              <a
+                href="/vendor/orders"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Orders
               </a>
             </>
           )}
@@ -239,12 +251,12 @@ const Navbar = () => {
                   >
                     Profile
                   </a>
-                  <a
+                  {/* <a
                     href="/admin/manage-vendors"
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Manage Vendors
-                  </a>
+                  </a> */}
                   <a
                     href="/admin/user-management"
                     className="text-sm font-medium transition-colors hover:text-primary"
@@ -262,6 +274,12 @@ const Navbar = () => {
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Shops
+                  </a>
+                  <a
+                    href="/admin/all-orders"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Orders
                   </a>
                 </>
               )}
@@ -302,6 +320,12 @@ const Navbar = () => {
                     className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     Shop
+                  </a>
+                  <a
+                    href="/vendor/orders"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Orders
                   </a>
                 </>
               )}

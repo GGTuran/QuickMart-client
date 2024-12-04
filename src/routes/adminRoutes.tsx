@@ -1,3 +1,4 @@
+import AllOrders from "@/pages/AllOrders";
 import CategoryManagement from "@/pages/CategoryManagement";
 import ShopManagement from "@/pages/ShopManagement";
 import UserManagement from "@/pages/UserManagement";
@@ -14,5 +15,9 @@ export const adminPaths = [
   {
     path: "shop-management",
     element: <ShopManagement></ShopManagement>,
+  },
+  {
+    path: "all-orders",
+    element: <AllOrders></AllOrders>,
   },
 ];
