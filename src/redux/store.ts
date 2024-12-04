@@ -14,6 +14,7 @@ import authSlice from './features/auth/authSlice';
 import storage from 'redux-persist/lib/storage';
 import couponSlice from './features/coupon/couponSlice';
 import cartSlice from './features/cart/cartSlice';
+import comparisonSlice from './features/comparison/comparisonSlice';
 
 
 
@@ -37,7 +38,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     coupon: couponSlice,
     cart: persistedCartReducer,
-
+    comparison: comparisonSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
