@@ -22,6 +22,7 @@ import ResetPassword from "@/pages/ResetPassword";
 import AllProducts from "@/pages/AllProducts";
 import FlashSalePage from "@/components/Banner/FlashSalePage";
 import CompareList from "@/components/Comparison/CompareList";
+import RecentProducts from "@/pages/RecentProducts";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/compare",
         element: <CompareList></CompareList>,
+      },
+      {
+        path: "/recent-products",
+        element: <RecentProducts></RecentProducts>,
       },
     ],
   },

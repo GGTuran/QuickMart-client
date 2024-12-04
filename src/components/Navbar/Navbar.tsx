@@ -63,6 +63,12 @@ const Navbar = () => {
           >
             Compare
           </a>
+          <a
+            href="/recent-products"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Recent Products
+          </a>
           {/* <a
             href="/about-us"
             className="text-sm font-medium transition-colors hover:text-primary"
@@ -252,6 +258,12 @@ const Navbar = () => {
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Compare
+              </a>
+              <a
+                href="/recent-products"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Recent Products
               </a>
 
               {/* Conditional Links Based on Role */}

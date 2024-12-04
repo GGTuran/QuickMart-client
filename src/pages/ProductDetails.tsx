@@ -9,10 +9,16 @@ import {
 } from "@/redux/features/product/productApi";
 import useCartHandler from "@/hooks/useCartHandler";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToRecentlyViewed } from "@/redux/features/recent/recentViewed";
+import { TProduct } from "@/types/product.interface";
+import { useDispatch } from "react-redux";
 
 const ProductDetails = () => {
   const { productId } = useParams();
 
+  const dispatch = useDispatch();
   const { handleAddToCart } = useCartHandler();
 
   const { data: userData } = useGetProfileQuery("", {
@@ -20,7 +26,6 @@ const ProductDetails = () => {
   });
 
   const user = userData?.data;
-  // console.log(user, "user");
 
   const {
     data: product,
@@ -35,16 +40,25 @@ const ProductDetails = () => {
 
   const reviews = product?.data?.reviews;
   const shopId = product?.data?.shopId;
-  // console.log(shopId);
 
-  // console.log(reviews, "review");
-  // console.log(relatedProducts, product?.data?.category._id, "related");
+  useEffect(() => {
+    if (product?.data) {
+      const normalizedProduct: TProduct = {
+        _id: product.data._id,
+        name: product.data.name,
+        image: product.data.image,
+        price: product.data.price || 0,
+        discount: product.data.discount || 0,
+        category: product.data.category,
+        inventoryCount: product.data.inventoryCount || 0,
+        shopId: product.data.shopId,
+        reviews: product.data.reviews || [],
+      };
 
-  // console.log(product, "from gg");
-  // console.log(product?.data?.category.name);
-
-  // // const details = product?.data;
-  // // console.log(details, "detalis");
+      // Dispatch action to add to the recently viewed products list
+      dispatch(addToRecentlyViewed(normalizedProduct));
+    }
+  }, [product?.data, dispatch]);
 
   if (isLoading) {
     return (

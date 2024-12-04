@@ -15,6 +15,8 @@ import storage from 'redux-persist/lib/storage';
 import couponSlice from './features/coupon/couponSlice';
 import cartSlice from './features/cart/cartSlice';
 import comparisonSlice from './features/comparison/comparisonSlice';
+import recentlyViewedSlice from "./features/recent/recentViewed";
+
 
 
 
@@ -29,8 +31,15 @@ const cartPersistConfig = {
   storage,
 };
 
+const recentlyViewedPersistConfig = {
+  key: 'recentlyViewed',
+  storage,
+};
+
+
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 const persistedCartReducer = persistReducer(cartPersistConfig, cartSlice);
+const persistedRecentlyViewedReducer = persistReducer(recentlyViewedPersistConfig, recentlyViewedSlice);
 
 export const store = configureStore({
   reducer: {
@@ -38,7 +47,8 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     coupon: couponSlice,
     cart: persistedCartReducer,
-    comparison: comparisonSlice
+    comparison: comparisonSlice,
+    recentlyViewed: persistedRecentlyViewedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
