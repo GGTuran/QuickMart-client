@@ -13,10 +13,12 @@ import { Input } from "@/components/ui/input";
 import { useSearchParams } from "react-router-dom";
 import {
   Pagination,
+  PaginationContent,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationEllipsis,
 } from "@/components/ui/pagination";
 
 const AllProducts = () => {
@@ -144,27 +146,45 @@ const AllProducts = () => {
         ))}
       </div>
 
-      {/* Pagination Controls */}
-      <div className="flex justify-center space-x-2 mt-6">
+      {/* Custom Pagination Controls */}
+      <div className="flex justify-center mt-6">
         <Pagination>
-          <PaginationPrevious
-            onClick={() => handlePageChange(currentPage - 1)}
-            // disabled={currentPage === 1}
-          />
-          {[...Array(totalPages)].map((_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
-                isActive={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </PaginationLink>
+          <PaginationContent>
+            {/* Previous Button */}
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
             </PaginationItem>
-          ))}
-          <PaginationNext
-            onClick={() => handlePageChange(currentPage + 1)}
-            // disabled={currentPage === totalPages}
-          />
+
+            {/* Page Numbers */}
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={() => handlePageChange(index + 1)}
+                  isActive={currentPage === index + 1}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
+            {/* Ellipsis if needed */}
+            {totalPages > 5 && currentPage < totalPages - 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            {/* Next Button */}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              />
+            </PaginationItem>
+          </PaginationContent>
         </Pagination>
       </div>
     </div>

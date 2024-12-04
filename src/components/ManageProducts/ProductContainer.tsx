@@ -5,6 +5,16 @@ import AddProductModal from "./AddProductModal";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import { useGetShopByVendorIdQuery } from "@/redux/features/shop/shopApi";
 import ManageCard from "./ManageCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
+import { useState } from "react";
 
 const ProductContainer = () => {
   const { data } = useGetProfileQuery("", {
@@ -12,10 +22,8 @@ const ProductContainer = () => {
   });
 
   const person = data?.data;
-
   const { data: shopByVendor } = useGetShopByVendorIdQuery(person?._id);
   const shop = shopByVendor?.data;
-  console.log(shop, "shop");
 
   // Fetching data through RTK Query
   const { data: productsData, isLoading } = useGetProductsByShopIdQuery(
@@ -23,13 +31,29 @@ const ProductContainer = () => {
     {
       pollingInterval: 40000,
     }
-  ); //using rtk polling interval for latest product
+  );
 
   const products = productsData?.data;
 
-  console.log(products, "products");
-
   const { name, logo, description } = shop || {};
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // Number of products to display per page
+
+  // Calculate pagination values
+  const totalItems = products?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentPageProducts = products?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) {
     return (
@@ -65,9 +89,51 @@ const ProductContainer = () => {
 
       {/* Manage Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {products?.map((product: JSX.IntrinsicAttributes & any) => (
+        {currentPageProducts?.map((product: JSX.IntrinsicAttributes & any) => (
           <ManageCard key={product._id} {...product} />
         ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6">
+        <Pagination>
+          <PaginationContent>
+            {/* Previous Button */}
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                // disabled={currentPage === 1}
+              />
+            </PaginationItem>
+
+            {/* Page Numbers */}
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={() => handlePageChange(index + 1)}
+                  isActive={currentPage === index + 1}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
+            {/* Ellipsis if needed */}
+            {totalPages > 5 && currentPage < totalPages - 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            {/* Next Button */}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                // disabled={currentPage === totalPages}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

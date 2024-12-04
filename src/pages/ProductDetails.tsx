@@ -1,5 +1,13 @@
 import Loading from "@/components/Loading/Loading";
-
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 import { Link, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
@@ -9,8 +17,7 @@ import {
 } from "@/redux/features/product/productApi";
 import useCartHandler from "@/hooks/useCartHandler";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/redux/hooks";
+import { useEffect, useState } from "react";
 import { addToRecentlyViewed } from "@/redux/features/recent/recentViewed";
 import { TProduct } from "@/types/product.interface";
 import { useDispatch } from "react-redux";
@@ -19,14 +26,10 @@ import AddReviewModal from "@/components/Review/AddReviewModal";
 
 const ProductDetails = () => {
   const { productId } = useParams();
-
   const dispatch = useDispatch();
   const { handleAddToCart } = useCartHandler();
 
-  const { data: userData } = useGetProfileQuery("", {
-    pollingInterval: 30000,
-  });
-
+  const { data: userData } = useGetProfileQuery("", { pollingInterval: 30000 });
   const user = userData?.data;
 
   const {
@@ -43,6 +46,23 @@ const ProductDetails = () => {
   const reviews = product?.data?.reviews;
   const shopId = product?.data?.shopId;
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  // Handle related products pagination
+  const totalItems = relatedProducts?.data?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageProducts =
+    relatedProducts?.data?.slice(startIndex, endIndex) || [];
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     if (product?.data) {
       const normalizedProduct: TProduct = {
@@ -57,11 +77,11 @@ const ProductDetails = () => {
         reviews: product.data.reviews || [],
       };
 
-      // Dispatch action to add to the recently viewed products list
       dispatch(addToRecentlyViewed(normalizedProduct));
     }
   }, [product?.data, dispatch]);
 
+  // Loading and error states
   if (isLoading) {
     return (
       <div className="m-10 flex justify-center items-center">
@@ -83,9 +103,9 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="m-10  mx-auto px-4 mt-8">
+    <div className="m-10 mx-auto px-4 mt-8">
       <Toaster />
-      <div className="max-w-lg mx-auto  p-8 rounded-lg shadow-lg">
+      <div className="max-w-lg mx-auto p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">{product?.data?.name}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:mt-12">
@@ -96,9 +116,7 @@ const ProductDetails = () => {
             />
           </div>
           <div>
-            <p className=" mb-2">Brand: {product?.data?.category?.name}</p>
-            {/* <p className=" mb-2">Description: {product.data.description}</p> */}
-            {/* Shop Link */}
+            <p className="mb-2">Brand: {product?.data?.category?.name}</p>
             <p className="text-lg mb-4">
               <span className="font-semibold">Shop:</span>{" "}
               <Link
@@ -108,35 +126,31 @@ const ProductDetails = () => {
                 {product?.data?.shopId?.name}
               </Link>
             </p>
-            {/* <p className=" mb-2">
-              Available: {product.data.isAvailable ? "Yes" : "No"}
-            </p> */}
-            {/* <span className="flex gap-2">{Rating(product.data.rating)}</span> */}
+            <p className="mb-2">Price: ${product?.data?.price}</p>
 
-            <p className=" mb-2">Price: ${product?.data?.price}</p>
-
-            <Button
-              onClick={() =>
-                // console.log(product,product.shopId, user?._id, 'before dispatch')
-                handleAddToCart(product, product?.data?.shopId, user?._id)
-              }
-              className="w-full mt-4 py-2 rounded"
-            >
-              Add to Cart
-            </Button>
-            <AddReviewModal productId={product?.data?._id} />
+            <div className="flex justify-between gap-2">
+              <Button
+                onClick={() =>
+                  handleAddToCart(product, product?.data?.shopId, user?._id)
+                }
+                className=" mt-4 py-2 rounded"
+              >
+                Add to Cart
+              </Button>
+              <AddReviewModal productId={product?.data?._id} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* customer reviews */}
+      {/* Customer reviews */}
       <CustomerReviews reviews={reviews} />
 
-      {/* relatedProducts */}
+      {/* Related Products with Pagination */}
       <div className="mt-12">
         <h3 className="text-2xl font-bold mb-6">Related Products</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {relatedProducts?.data?.map((product) => (
+          {currentPageProducts.map((product) => (
             <div
               key={product?._id}
               className="p-4 border rounded-lg hover:shadow-md transition"
@@ -156,6 +170,40 @@ const ProductDetails = () => {
               </Link>
             </div>
           ))}
+        </div>
+        {/* Pagination Controls */}
+        <div className="flex justify-center mt-6">
+          <Pagination>
+            <PaginationContent>
+              {/* Previous Button */}
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  // disabled={currentPage === 1}
+                />
+              </PaginationItem>
+
+              {/* Page Numbers */}
+              {[...Array(totalPages)].map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    onClick={() => handlePageChange(index + 1)}
+                    isActive={currentPage === index + 1}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              {/* Next Button */}
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  // disabled={currentPage === totalPages}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>

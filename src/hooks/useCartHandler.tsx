@@ -8,6 +8,7 @@ import {
 } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/product.interface";
 import { useState } from "react";
+import ConflictModal from "@/components/Conflict/ConflictModal";
 
 const useCartHandler = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,16 @@ const useCartHandler = () => {
 
   const handleAddToCart = (product: TProduct, shopId: any, user: string) => {
     if (currentShopId && currentShopId !== shopId?._id) {
-      toast.error("err");
-      setConflictProduct(product);
-      setConflictShopId(shopId._id);
-      setUserId(user);
-      console.log("Opening modal");
+      toast.error("You can add product from only one shop");
       setShowModal(true); // Should trigger modal to show
+      console.log("Opening modal");
+      <ConflictModal
+        shopId={shopId?._id}
+        product={product}
+        userId={user}
+        currentShopId={currentShopId}
+        setShowModal={setShowModal}
+      />;
       return;
     }
 

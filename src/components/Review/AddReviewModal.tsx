@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Loading from "../Loading/Loading";
 import { useAddReviewMutation } from "@/redux/features/review/reviewApi"; // Update with your API slice
 import { useGetProfileQuery } from "@/redux/features/user/userApi"; // For fetching user data
+import { Button } from "../ui/button";
 
 type AddReviewModalProps = {
   productId: string; // Product ID will be passed as a prop
@@ -63,9 +64,7 @@ const AddReviewModal = ({ productId }: AddReviewModalProps) => {
       <Toaster />
       <Dialog>
         <DialogTrigger asChild>
-          <button className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300">
-            Add Review
-          </button>
+          <Button className="mt-4">Add Review</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
@@ -109,13 +108,9 @@ const AddReviewModal = ({ productId }: AddReviewModalProps) => {
             </div>
             <div className="flex justify-end">
               <DialogClose asChild>
-                <button
-                  className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300"
-                  type="submit"
-                  disabled={isLoading}
-                >
+                <Button type="submit" disabled={isLoading}>
                   {isLoading ? "Saving..." : "Submit Review"}
-                </button>
+                </Button>
               </DialogClose>
             </div>
           </form>

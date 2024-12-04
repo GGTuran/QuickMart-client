@@ -1,26 +1,45 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"; // Import Table components
+
 const CustomerReviews = ({ reviews }) => {
   console.log(reviews, "fetched reviews");
+
   return (
-    <div>
-      <div className="mt-12">
-        <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
-        {reviews?.length === 0 ? (
-          <p>No reviews yet.</p>
-        ) : (
-          reviews?.map((review: any, index: any) => (
-            <div
-              key={index}
-              className="border-t border-gray-200 py-4 flex justify-center items-center gap-5"
-            >
-              <p className="font-semibold">{review?.userId?.name}</p>
-              <p className="text-sm">{review?.comment}</p>
-              <p className="text-sm text-yellow-500">
-                Rating: {review?.rating}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+    <div className="mt-12">
+      <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
+
+      {/* Render table if there are reviews */}
+      {reviews?.length === 0 ? (
+        <p>No reviews yet.</p>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>User</TableHead>
+              <TableHead>Comment</TableHead>
+              <TableHead>Rating</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {reviews?.map((review, index) => (
+              <TableRow key={index}>
+                <TableCell>{review?.userId?.name}</TableCell>
+                <TableCell>{review?.comment}</TableCell>
+                <TableCell>
+                  <span className="text-yellow-500">{review?.rating} / 5</span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
