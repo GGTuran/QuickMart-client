@@ -19,6 +19,7 @@ import Shop from "@/pages/Shop";
 import { vendorPaths } from "./vendorRoutes";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
+import AllProducts from "@/pages/AllProducts";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: "/all-products",
+        element: <AllProducts></AllProducts>,
       },
       {
         path: "/products/:productId",

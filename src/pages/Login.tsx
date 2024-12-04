@@ -33,7 +33,7 @@ const Login = () => {
           state: { success: "Registration successful! Set up your shop here." },
         });
       } else {
-        navigate("/login", {
+        navigate("/", {
           state: { success: "Registration successful! Please log in." },
         });
       }

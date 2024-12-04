@@ -29,7 +29,7 @@ const ProductDetails = () => {
   } = useGetProductByIdQuery(productId);
 
   const { data: relatedProducts } = useGetAllProductsQuery({
-    category: product?.data?.category._id,
+    category: product?.data?.category?._id,
     searchTerm: "",
   });
 
@@ -70,12 +70,12 @@ const ProductDetails = () => {
     <div className="m-10  mx-auto px-4 mt-8">
       <Toaster />
       <div className="max-w-lg mx-auto  p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">{product.data.name}</h2>
+        <h2 className="text-2xl font-bold mb-4">{product?.data?.name}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:mt-12">
             <img
-              src={product.data.image}
-              alt={product.data.name}
+              src={product?.data?.image}
+              alt={product?.data?.name}
               className="rounded-lg"
             />
           </div>
@@ -86,7 +86,7 @@ const ProductDetails = () => {
             <p className="text-lg mb-4">
               <span className="font-semibold">Shop:</span>{" "}
               <Link
-                to={`/shops/${product?.data?.shopId._id}`}
+                to={`/shops/${product?.data?.shopId?._id}`}
                 className="text-blue-500 hover:underline"
               >
                 {product?.data?.shopId?.name}
@@ -97,7 +97,7 @@ const ProductDetails = () => {
             </p> */}
             {/* <span className="flex gap-2">{Rating(product.data.rating)}</span> */}
 
-            <p className=" mb-2">Price: ${product.data.price}</p>
+            <p className=" mb-2">Price: ${product?.data?.price}</p>
 
             <Button
               onClick={() =>
@@ -115,17 +115,19 @@ const ProductDetails = () => {
       {/* customer reviews */}
       <div className="mt-12">
         <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
-        {reviews.length === 0 ? (
+        {reviews?.length === 0 ? (
           <p>No reviews yet.</p>
         ) : (
-          reviews.map((review: any, index: any) => (
+          reviews?.map((review: any, index: any) => (
             <div
               key={index}
               className="border-t border-gray-200 py-4 flex justify-center items-center gap-5"
             >
-              <p className="font-semibold">{review.userId.name}</p>
-              <p className="text-sm">{review.comment}</p>
-              <p className="text-sm text-yellow-500">Rating: {review.rating}</p>
+              <p className="font-semibold">{review?.userId?.name}</p>
+              <p className="text-sm">{review?.comment}</p>
+              <p className="text-sm text-yellow-500">
+                Rating: {review?.rating}
+              </p>
             </div>
           ))
         )}
@@ -137,18 +139,18 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {relatedProducts?.data?.map((product) => (
             <div
-              key={product._id}
+              key={product?._id}
               className="p-4 border rounded-lg hover:shadow-md transition"
             >
               <img
-                src={product.image}
-                alt={product.name}
+                src={product?.image}
+                alt={product?.name}
                 className="rounded-lg mb-4"
               />
-              <h4 className="text-lg font-semibold mb-2">{product.name}</h4>
-              <p className="text-sm text-gray-600">{product.category.name}</p>
+              <h4 className="text-lg font-semibold mb-2">{product?.name}</h4>
+              <p className="text-sm text-gray-600">{product?.category?.name}</p>
               <Link
-                to={`/products/${product._id}`}
+                to={`/products/${product?._id}`}
                 className="text-blue-500 hover:underline mt-2 block"
               >
                 View Details

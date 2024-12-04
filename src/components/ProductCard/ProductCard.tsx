@@ -11,24 +11,24 @@ const ProductCard = ({ product }: any) => {
       className="bg-card rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl"
     >
       <img
-        src={product.image}
-        alt={product.name}
+        src={product?.image}
+        alt={product?.name}
         className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover"
       />
       <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+        <h3 className="text-lg font-semibold mb-2">{product?.name}</h3>
         <p className="text-sm mb-4">
           {" "}
           <span className="font-semibold"></span>
           {product?.category?.name || "Uncategorized"}
         </p>
-        <p className="text-sm mb-4">Available: {product.inventoryCount}</p>
+        <p className="text-sm mb-4">Available: {product?.inventoryCount}</p>
 
         <div className="flex justify-between items-center">
-          <span className="font-medium">${product.price}</span>
+          <span className="font-medium">${product?.price}</span>
           <Link
             className="flex justify-center items-center"
-            to={`/products/${product._id}`}
+            to={`/products/${product?._id}`}
           >
             <motion.button
               whileHover={{ scale: 1.05 }}

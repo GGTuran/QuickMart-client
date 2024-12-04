@@ -51,6 +51,12 @@ const Navbar = () => {
           >
             Home
           </a>
+          <a
+            href="/all-products"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            All Products
+          </a>
           {/* <a
             href="/about-us"
             className="text-sm font-medium transition-colors hover:text-primary"
@@ -107,12 +113,7 @@ const Navbar = () => {
               >
                 Profile
               </a>
-              <a
-                href="/users/all-products"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Products
-              </a>
+
               <a
                 href="/customer/cart"
                 className="text-sm font-medium transition-colors hover:text-primary"
@@ -216,6 +217,13 @@ const Navbar = () => {
                 Contact
               </a> */}
 
+              <a
+                href="/all-products"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                All Products
+              </a>
+
               {/* Conditional Links Based on Role */}
               {user && user.role === "admin" && (
                 <>
@@ -259,12 +267,7 @@ const Navbar = () => {
                   >
                     Profile
                   </a>
-                  <a
-                    href="/users/all-products"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Products
-                  </a>
+
                   <a
                     href="/users/my-orders"
                     className="text-sm font-medium transition-colors hover:text-primary"
