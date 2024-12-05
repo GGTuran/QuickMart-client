@@ -122,12 +122,12 @@ npm run dev
 
 To start using the QuickMart website, follow these steps:
 
-1. **Access the Website**: Navigate to the [Bike Rental website](https://mart-client.vercel.app/) using your web browser.
+1. **Access the Website**: Navigate to the [QuickMart](https://mart-client.vercel.app/) using your web browser.
 
 2. **Browse Available Products**:
 
    - On the homepage, you can view a list of available products.
-   - Use the search bar to filter bikes by name, category, or price.
+   - Use the search bar to filter products by name, category, or price.
 
 3. **Buy a Product**:
    - Select a Product from the list to view its details.
