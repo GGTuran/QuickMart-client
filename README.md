@@ -94,7 +94,7 @@ npm install
 
 ```bash
 
-    DATABASE_URL=backend_url
+    DATABASE_URL= https://mart-server.vercel.app/
 
 ```
 
