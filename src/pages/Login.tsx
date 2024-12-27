@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginFormInputs } from "@/schema/loginSchema";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom"; // Add Link for navigation
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
@@ -30,11 +31,11 @@ const Login = () => {
       dispatch(setUser({ user: user, token: res.token }));
       if (user?.role === "vendor") {
         navigate("/vendor/shop", {
-          state: { success: "Registration successful! Set up your shop here." },
+          state: { success: "Login successful! Welcome to your shop." },
         });
       } else {
         navigate("/", {
-          state: { success: "Registration successful! Please log in." },
+          state: { success: "Login successful! Welcome back." },
         });
       }
     } catch (error) {
@@ -42,8 +43,20 @@ const Login = () => {
     }
   };
 
+  const autofillCredentials = (role: "customer" | "vendor" | "admin") => {
+    const credentials = {
+      customer: { email: "john@customer.com", password: "customer123" },
+      vendor: { email: "john@vendor.com", password: "vendor123" },
+      admin: { email: "john@admin.com", password: "admin123" },
+    };
+
+    const { email, password } = credentials[role];
+    setValue("email", email);
+    setValue("password", password);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -96,22 +109,40 @@ const Login = () => {
           )}
         </form>
 
-        {/* Forgot Password and Don't have an account links */}
-        <div className="flex justify-between items-center">
-          <div className="mt-4 text-sm text-center">
-            <Link
-              to="/forgot-password"
-              className="text-primary hover:underline"
-            >
-              <p className="text-blue-500">Forgot Password?</p>
-            </Link>
-          </div>
-          <div className="mt-2 text-sm text-center">
-            {/* <span>Don't have an account? </span> */}
-            <Link to="/signup" className="text-primary hover:underline">
-              <p className="text-blue-500">Sign Up</p>
-            </Link>
-          </div>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => autofillCredentials("customer")}
+          >
+            Customer Credential
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => autofillCredentials("vendor")}
+          >
+            Vendor Credential
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => autofillCredentials("admin")}
+          >
+            Admin Credential
+          </Button>
+        </div>
+
+        <div className="flex justify-between items-center mt-6">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-blue-500 hover:underline"
+          >
+            Forgot Password?
+          </Link>
+          <Link to="/signup" className="text-sm text-blue-500 hover:underline">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>

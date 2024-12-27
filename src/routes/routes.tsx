@@ -23,6 +23,7 @@ import AllProducts from "@/pages/AllProducts";
 import FlashSalePage from "@/components/Banner/FlashSalePage";
 import CompareList from "@/components/Comparison/CompareList";
 import RecentProducts from "@/pages/RecentProducts";
+import AllShops from "@/pages/AllShops";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/all-products",
         element: <AllProducts></AllProducts>,
+      },
+      {
+        path: "/shops",
+        element: <AllShops></AllShops>,
       },
       {
         path: "/products/:productId",

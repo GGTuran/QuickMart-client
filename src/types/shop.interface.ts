@@ -1,5 +1,3 @@
-
-
 export type TShop = {
     _id?: string;
     name?: string;

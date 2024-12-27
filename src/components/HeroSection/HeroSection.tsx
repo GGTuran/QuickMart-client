@@ -12,31 +12,30 @@ import sliderImage2 from "@/assets/images/Adidas.jpg";
 import sliderImage3 from "@/assets/images/benjamin-hershey-qegSxvH9U9Y-unsplash.jpg";
 
 const HeroSection = () => {
-
   // adding slider data to show
-    const sliderData = [
-        {
-          id: 1,
-          image: sliderImage1,
-          title: "Big Summer Sale!",
-          description: "Get up to 50% off on all items",
-        },
-        {
-          id: 2,
-          image: sliderImage2,
-          title: "Exclusive Offer",
-          description: "Buy Adidas Sambas with 15% Off",
-        },
-        {
-          id: 3,
-          image: sliderImage3,
-          title: "New Arrivals",
-          description: "Check out our latest collection",
-        },
-      ];
-  
-    return (
-        <div className="relative m-10 w-full p-4 bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px] mt-6">
+  const sliderData = [
+    {
+      id: 1,
+      image: sliderImage1,
+      title: "Big Summer Sale!",
+      description: "Get up to 50% off on all items",
+    },
+    {
+      id: 2,
+      image: sliderImage2,
+      title: "Exclusive Offer",
+      description: "Buy Adidas Sambas with 15% Off",
+    },
+    {
+      id: 3,
+      image: sliderImage3,
+      title: "New Arrivals",
+      description: "Check out our latest collection",
+    },
+  ];
+
+  return (
+    <div className="relative m-10 w-full p-4 bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px] mt-6">
       <Carousel
         className="overflow-hidden rounded-lg shadow-lg"
         plugins={[
@@ -79,6 +78,7 @@ const HeroSection = () => {
         </CarouselNext>
       </Carousel>
     </div>
-    )};
+  );
+};
 
 export default HeroSection;

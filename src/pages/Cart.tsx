@@ -22,8 +22,6 @@ const Cart = () => {
 
   const [isCouponApplied, setIsCouponApplied] = useState(false); // Track if coupon is applied
 
-  console.log(cart, "cart");
-
   // Function for removing product from cart
   const handleRemove = (productId: string) => {
     dispatch(removeFromCart(productId));
@@ -60,20 +58,16 @@ const Cart = () => {
     if (cart.every((item) => item.product.inventoryCount >= item.quantity)) {
       try {
         const orderPayload = {
-          userId: user?._id, // Replace with dynamic userId
+          userId: user?._id,
           products: cart.map((item) => item.productId),
           shopId: cart[0].shopId,
           paymentStatus: "pending",
           orderDate: new Date().toISOString(),
         };
-        console.log(orderPayload, "orderpayload");
         const response = await createOrder(orderPayload).unwrap();
-        console.log(response, "res");
         toast.success("Order created successfully!");
         window.location.href = response?.data?.paymentSession.payment_url;
-        // navigate("/checkout-success"); // Navigate to success page or other desired location
       } catch (error) {
-        console.error(error);
         toast.error("Failed to create order. Please try again.");
       }
     } else {
@@ -82,10 +76,32 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen mb-5 rounded-2xl bg-gray-100 flex flex-col items-center py-10">
+    <div className="min-h-screen  flex flex-col items-center py-10">
       <Toaster />
-      <h1 className="text-3xl font-medium mb-8">Cart</h1>
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+      {/* <h1 className="text-3xl font-medium mb-8">Cart</h1> */}
+      <div className="w-full max-w-4xl  rounded-lg shadow-lg p-6 space-y-6">
+        {/* User Information */}
+        {user && (
+          <div className="flex flex-col items-center  rounded-lg p-4 ">
+            <div className="flex justify-end items-center gap-5">
+              <div>
+                <img
+                  src={user.image || "/default-user.jpg"}
+                  alt={user.name}
+                  className="w-16 h-16 rounded-full object-cover mb-4"
+                />
+              </div>
+              <div>
+                <h2 className="text-lg font-medium ">{user.name}</h2>
+                <p className=" text-sm">{user.email}</p>
+                <p className=" text-sm">{user.phone}</p>
+                <p className=" text-sm">{user.address}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Cart Items */}
         {cart.length > 0 ? (
           <ul className="space-y-6">
             {cart.map((item) => (
@@ -94,84 +110,63 @@ const Cart = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow"
+                className="flex justify-between items-center p-4 rounded-lg shadow"
               >
                 <div>
                   <h2 className="text-lg font-semibold">{item.product.name}</h2>
                   <p>Price: ${item.product.price}</p>
-                  <div>
-                    <label htmlFor="Quantity" className="sr-only">
-                      Quantity
-                    </label>
-
-                    <div className="flex items-center rounded border border-gray-200">
-                      <button
-                        onClick={() =>
-                          handleQuantityChange(
-                            item.productId,
-                            item.quantity - 1
-                          )
-                        }
-                        disabled={item.quantity <= 1}
-                        type="button"
-                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                      >
-                        &minus;
-                      </button>
-
-                      <input
-                        type="number"
-                        id="Quantity"
-                        value={item.quantity}
-                        className="h-10 w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                        readOnly
-                      />
-
-                      <button
-                        onClick={() =>
-                          handleQuantityChange(
-                            item.productId,
-                            item.quantity + 1
-                          )
-                        }
-                        disabled={item.quantity >= item.product.inventoryCount}
-                        type="button"
-                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-2 flex gap-2">
+                  <div className="flex items-center rounded border border-gray-200 mt-2">
                     <button
-                      onClick={() => handleRemove(item.productId)}
-                      className="px-4 py-2 bg-red-300 text-black rounded-lg hover:bg-red-500 transition-colors duration-300"
+                      onClick={() =>
+                        handleQuantityChange(item.productId, item.quantity - 1)
+                      }
+                      disabled={item.quantity <= 1}
+                      className="px-3 py-1 text-gray-600 hover:opacity-75"
                     >
-                      Remove
+                      &minus;
+                    </button>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      readOnly
+                      className="w-12 text-center border-transparent bg-transparent"
+                    />
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(item.productId, item.quantity + 1)
+                      }
+                      disabled={item.quantity >= item.product.inventoryCount}
+                      className="px-3 py-1 text-gray-600 hover:opacity-75"
+                    >
+                      +
                     </button>
                   </div>
+                  <button
+                    onClick={() => handleRemove(item.productId)}
+                    className="mt-2 px-4 py-2 bg-red-300 text-black rounded-lg hover:bg-red-500"
+                  >
+                    Remove
+                  </button>
                 </div>
-                <div>
-                  <img
-                    src={item.product.image}
-                    alt={item.product.name}
-                    className="w-20 h-20 object-cover rounded-lg"
-                  />
-                </div>
+                <img
+                  src={item.product.image}
+                  alt={item.product.name}
+                  className="w-20 h-20 object-cover rounded-lg"
+                />
               </motion.li>
             ))}
           </ul>
         ) : (
           <p className="text-center text-gray-500">Your cart is empty.</p>
         )}
+
+        {/* Total Price and Actions */}
         {cart.length > 0 && (
-          <div className="mt-8 space-y-4">
+          <div className="space-y-4">
             <h2 className="text-xl font-medium">
               Total: ${calculateTotal().toFixed(2)}
             </h2>
-
-            <div className="flex  gap-2">
-              {" "}
+            <div className="flex gap-2">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -179,9 +174,9 @@ const Cart = () => {
                 disabled={isCouponApplied}
                 className={`px-4 py-2 ${
                   isCouponApplied
-                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-green-300 text-black hover:bg-green-500"
-                } rounded-lg transition-colors duration-300`}
+                    ? "bg-gray-300 text-gray-500"
+                    : "bg-green-300 hover:bg-green-500"
+                } rounded-lg`}
               >
                 {isCouponApplied ? "Coupon Applied" : "Apply Coupon"}
               </motion.button>
@@ -192,7 +187,7 @@ const Cart = () => {
                 disabled={cart.some(
                   (item) => item.product.inventoryCount < item.quantity
                 )}
-                className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300"
+                className="px-4 py-2 bg-gray-300 hover:bg-gray-500 rounded-lg"
               >
                 Proceed to Checkout
               </motion.button>

@@ -11,17 +11,17 @@ import ProductList from "@/components/Shop/ProductList";
 
 const Shop = () => {
   const { shopId } = useParams();
-  console.log(shopId);
+  // console.log(shopId);
 
   // Fetch shop details
   const { data: shopData, isLoading: shopLoading } =
     useGetShopByIdQuery(shopId);
-  console.log(shopData, "data");
+  // console.log(shopData, "data");
 
   // Fetch products by vendor
   const { data } = useGetProductsByShopIdQuery(shopId);
   const products = data?.data;
-  console.log(products, "from shop");
+  // console.log(products, "from shop");
 
   const { data: userData } = useGetProfileQuery("", {
     pollingInterval: 30000,
