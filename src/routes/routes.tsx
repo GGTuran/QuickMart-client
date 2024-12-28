@@ -24,6 +24,7 @@ import FlashSalePage from "@/components/Banner/FlashSalePage";
 import CompareList from "@/components/Comparison/CompareList";
 import RecentProducts from "@/pages/RecentProducts";
 import AllShops from "@/pages/AllShops";
+import Dashboard from "@/components/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
     ],
   },
 
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+  },
   {
     path: "/login",
     element: <Login></Login>,

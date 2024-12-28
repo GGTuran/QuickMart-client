@@ -85,6 +85,9 @@ const Navbar = () => {
                 {user.role === "admin" && (
                   <>
                     <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -104,6 +107,9 @@ const Navbar = () => {
                 {user.role === "customer" && (
                   <>
                     <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -116,6 +122,9 @@ const Navbar = () => {
                 )}
                 {user.role === "vendor" && (
                   <>
+                    <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
@@ -177,6 +186,9 @@ const Navbar = () => {
                 {user.role === "admin" && (
                   <>
                     <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -196,6 +208,9 @@ const Navbar = () => {
                 {user.role === "customer" && (
                   <>
                     <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -208,6 +223,9 @@ const Navbar = () => {
                 )}
                 {user.role === "vendor" && (
                   <>
+                    <DropdownMenuItem>
+                      <a href="/dashboard">Dashboard</a>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>
                       <a href="/get-me">Profile</a>
                     </DropdownMenuItem>
