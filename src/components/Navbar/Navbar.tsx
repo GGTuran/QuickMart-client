@@ -5,6 +5,14 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MountainIcon from "@/assets/icons/MountainIcon";
 import MenuIcon from "@/assets/icons/MenuIcon";
 import XIcon from "@/assets/icons/XIIcon";
@@ -19,19 +27,15 @@ import {
 import { useTheme } from "../ThemeProvider/ThemeProvider";
 
 const Navbar = () => {
-  const { theme, setTheme } = useTheme(); // Destructure theme and setTheme
+  const { theme, setTheme } = useTheme();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
   const token = useAppSelector(useCurrentToken);
-  // console.log(user, token, "from nav");
-  // const desires = user?.role;
-  // console.log(desires);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  // Toggle dark mode using setTheme function
   const toggleDarkMode = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -44,7 +48,6 @@ const Navbar = () => {
           <span>QuickMart</span>
         </a>
         <nav className="hidden items-center gap-6 md:flex">
-          {/* Common Links */}
           <a
             href="/"
             className="text-sm font-medium transition-colors hover:text-primary"
@@ -69,121 +72,70 @@ const Navbar = () => {
           >
             Recent Products
           </a>
-          {/* <a
-            href="/about-us"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            About Us
-          </a>
-          <a
-            href="/contact"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Contact
-          </a> */}
-
-          {/* Conditional Links Based on Role */}
-          {user && user.role === "admin" && (
-            <>
-              <a
-                href="/get-me"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Profile
-              </a>
-              {/* <a
-                href="/admin/manage-vendors"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Manage Vendors
-              </a> */}
-              <a
-                href="/admin/user-management"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Users
-              </a>
-              <a
-                href="/admin/category-management"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Categories
-              </a>
-              <a
-                href="/admin/shop-management"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Shops
-              </a>
-              <a
-                href="/admin/all-orders"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Orders
-              </a>
-            </>
-          )}
-          {user && user.role === "customer" && (
-            <>
-              <a
-                href="/get-me"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Profile
-              </a>
-
-              <a
-                href="/customer/cart"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Cart
-              </a>
-              <a
-                href="/customer/orders"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Orders
-              </a>
-            </>
-          )}
-
-          {user && user.role === "vendor" && (
-            <>
-              <a
-                href="/get-me"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Profile
-              </a>
-              <a
-                href="/vendor/manage-products"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Products
-              </a>
-              <a
-                href="/vendor/shop"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                shop
-              </a>
-              <a
-                href="/vendor/orders"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Orders
-              </a>
-            </>
-          )}
-
-          {/* Authentication Links */}
-          {token ? (
-            <button
-              onClick={handleLogout}
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
-              Logout
-            </button>
+          {token && user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src={user?.image || undefined} alt={user.name} />
+                  <AvatarFallback>{user.name?.[0] || "U"}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                {/* Conditional Links Based on Role */}
+                {user.role === "admin" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/user-management">Users</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/category-management">Categories</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/shop-management">Shops</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/all-orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                {user.role === "customer" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/customer/cart">Cart</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/customer/orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                {user.role === "vendor" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/manage-products">Products</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/shop">Shop</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <>
               <a
@@ -204,7 +156,7 @@ const Navbar = () => {
             onClick={toggleDarkMode}
             className="text-sm font-medium transition-colors hover:text-primary"
           >
-            {theme === "dark" ? ( // Determine icon based on current theme
+            {theme === "dark" ? (
               <MoonIcon className="h-5 w-5" />
             ) : (
               <SunIcon className="h-5 w-5" />
@@ -212,185 +164,124 @@ const Navbar = () => {
           </button>
         </nav>
         {/* Mobile Menu */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden">
-              <MenuIcon className="h-6 w-6" />
-              <span className="sr-only">Toggle navigation</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-xs">
-            <div className="flex h-16 items-center justify-between px-4">
-              <a href="/" className="flex items-center">
-                <MountainIcon className="h-6 w-6 text-primary" />
-                <span className="sr-only">QuickMart</span>
-              </a>
-              <SheetClose asChild>
-                <Button variant="ghost" size="icon">
-                  <XIcon className="h-6 w-6" />
-                  <span className="sr-only">Close menu</span>
-                </Button>
-              </SheetClose>
-            </div>
-            <nav className="grid gap-4 px-4 py-6">
-              {/* Common Links */}
-              {/* <a
-                href="/about-us"
-                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-              >
-                About Us
-              </a>
-              <a
-                href="/contact"
-                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-              >
-                Contact
-              </a> */}
-
-              <a
-                href="/all-products"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                All Products
-              </a>
-              <a
-                href="/compare"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Compare
-              </a>
-              <a
-                href="/recent-products"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Recent Products
-              </a>
-
-              {/* Conditional Links Based on Role */}
-              {user && user.role === "admin" && (
-                <>
-                  <a
-                    href="/get-me"
-                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Profile
-                  </a>
-                  {/* <a
-                    href="/admin/manage-vendors"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Manage Vendors
-                  </a> */}
-                  <a
-                    href="/admin/user-management"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Users
-                  </a>
-                  <a
-                    href="/admin/category-management"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Categories
-                  </a>
-                  <a
-                    href="/admin/shop-management"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Shops
-                  </a>
-                  <a
-                    href="/admin/all-orders"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Orders
-                  </a>
-                </>
-              )}
-              {user && user.role === "customer" && (
-                <>
-                  <a
-                    href="/get-me"
-                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Profile
-                  </a>
-
-                  <a
-                    href="/customer/my-orders"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Orders
-                  </a>
-                </>
-              )}
-
-              {user && user.role === "vendor" && (
-                <>
-                  <a
-                    href="/get-me"
-                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Profile
-                  </a>
-                  <a
-                    href="/vendor/manage-products"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Products
-                  </a>
-                  <a
-                    href="/vendor/shop"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Shop
-                  </a>
-                  <a
-                    href="/vendor/orders"
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Orders
-                  </a>
-                </>
-              )}
-
-              {/* Authentication Links */}
-              {token ? (
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                >
-                  Logout
-                </button>
-              ) : (
-                <>
-                  <a
-                    href="/login"
-                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Login
-                  </a>
-                  <a
-                    href="/signup"
-                    className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Sign Up
-                  </a>
-                </>
-              )}
-              <button
-                onClick={toggleDarkMode}
-                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-              >
-                {theme === "dark" ? (
-                  <MoonIcon className="h-5 w-5" />
-                ) : (
-                  <SunIcon className="h-5 w-5" />
+        <div className="flex items-center md:hidden">
+          {token && user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar className="mr-2">
+                  <AvatarImage src={user?.image || undefined} alt={user.name} />
+                  <AvatarFallback>{user.name?.[0] || "U"}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                {user.role === "admin" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/user-management">Users</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/category-management">Categories</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/shop-management">Shops</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/all-orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
                 )}
-              </button>
-            </nav>
-          </SheetContent>
-        </Sheet>
+                {user.role === "customer" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/customer/cart">Cart</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/customer/orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                {user.role === "vendor" && (
+                  <>
+                    <DropdownMenuItem>
+                      <a href="/get-me">Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/manage-products">Products</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/shop">Shop</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/vendor/orders">Orders</a>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon">
+                <MenuIcon className="h-6 w-6" />
+                <span className="sr-only">Toggle navigation</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full max-w-xs">
+              <div className="flex h-16 items-center justify-between px-4">
+                <a href="/" className="flex items-center">
+                  <MountainIcon className="h-6 w-6 text-primary" />
+                  <span className="sr-only">QuickMart</span>
+                </a>
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon">
+                    <XIcon className="h-6 w-6" />
+                    <span className="sr-only">Close menu</span>
+                  </Button>
+                </SheetClose>
+              </div>
+              <nav className="grid gap-4 px-4 py-6">
+                <a
+                  href="/all-products"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  All Products
+                </a>
+                <a
+                  href="/compare"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  Compare
+                </a>
+                <a
+                  href="/recent-products"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  Recent Products
+                </a>
+                <button
+                  onClick={toggleDarkMode}
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  {theme === "dark" ? (
+                    <MoonIcon className="h-5 w-5" />
+                  ) : (
+                    <SunIcon className="h-5 w-5" />
+                  )}
+                </button>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );

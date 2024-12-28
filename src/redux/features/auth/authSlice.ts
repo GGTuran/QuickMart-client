@@ -7,6 +7,7 @@ export type TUser = {
     email: string;
     role: string;
     name: string;
+    image?: string;
     phone: string;
     address: string;
     followingShops: string[],
