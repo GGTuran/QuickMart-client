@@ -25,6 +25,7 @@ import CompareList from "@/components/Comparison/CompareList";
 import RecentProducts from "@/pages/RecentProducts";
 import AllShops from "@/pages/AllShops";
 import Dashboard from "@/components/Dashboard/Dashboard";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -78,7 +79,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <ProtectedRoute role="admin">
-        <App></App>
+        <Dashboard></Dashboard>
       </ProtectedRoute>
     ),
     errorElement: <Error></Error>,
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
     path: "/customer",
     element: (
       <ProtectedRoute role="customer">
-        <App></App>
+        <Dashboard></Dashboard>
       </ProtectedRoute>
     ),
     errorElement: <Error></Error>,
@@ -98,7 +99,7 @@ const router = createBrowserRouter([
     path: "/vendor",
     element: (
       <ProtectedRoute role="vendor">
-        <App></App>
+        <Dashboard></Dashboard>
       </ProtectedRoute>
     ),
     errorElement: <Error></Error>,
@@ -117,7 +118,7 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <DashboardLayout></DashboardLayout>,
   },
   {
     path: "/login",

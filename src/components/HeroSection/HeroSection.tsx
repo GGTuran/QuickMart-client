@@ -10,6 +10,7 @@ import {
 import sliderImage1 from "@/assets/images/basketball.jpg";
 import sliderImage2 from "@/assets/images/Adidas.jpg";
 import sliderImage3 from "@/assets/images/benjamin-hershey-qegSxvH9U9Y-unsplash.jpg";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   // adding slider data to show
@@ -61,9 +62,11 @@ const HeroSection = () => {
                     <p className="text-lg md:text-xl lg:text-2xl text-white mb-4">
                       {slider.description}
                     </p>
-                    <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-300 transition-colors duration-300">
-                      Learn More
-                    </button>
+                    <Link to="/all-products">
+                      <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-300 transition-colors duration-300">
+                        Learn More
+                      </button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

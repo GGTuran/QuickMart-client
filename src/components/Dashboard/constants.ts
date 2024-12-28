@@ -1,6 +1,5 @@
 export const userLinks = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/profile", label: "Profile" },
   { href: "/", label: "Home" },
   { href: "/cart", label: "Cart" },
   { href: "/orders", label: "Orders" },
@@ -9,7 +8,6 @@ export const userLinks = [
 
 
 export const adminLinks = [
-  { href: "/get-me", label: "Profile" },
   { href: "/", label: "Home" },
   { href: "/admin/user-management", label: "Users" },
   { href: "/admin/category-management", label: "Categories" },
@@ -19,7 +17,6 @@ export const adminLinks = [
 
 
 export const vendorLinks = [
-  { href: "/get-me", label: "Profile" },
   { href: "/", label: "Home" },
   { href: "/vendor/manage-products", label: "Products" },
   { href: "/vendor/shop", label: "Shop" },

@@ -34,7 +34,7 @@ const AboutUs = () => {
               <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-3xl">
                 About QuickMart
               </h2>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4 ">
                 QuickMart is a trusted online retailer offering a wide range of
                 premium products, established in 2015. With nearly a decade of
                 experience, we have become a go-to destination for customers
@@ -46,10 +46,10 @@ const AboutUs = () => {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold tracking-tight text-foreground">
+              <h3 className="text-xl font-semibold tracking-">
                 Our Mission and Vision
               </h3>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4 ">
                 Our mission at QuickMart is to offer a seamless and convenient
                 shopping experience that empowers our customers to find and
                 purchase the best products online. We aim to provide an
@@ -59,7 +59,7 @@ const AboutUs = () => {
                 committed to helping customers save time and shop smarter,
                 enhancing their overall experience.
               </p>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4 ">
                 Our vision is to be the go-to destination for all online
                 shopping needs, setting new standards in the e-commerce industry
                 with innovative solutions. We aspire to create a global

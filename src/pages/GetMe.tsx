@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import Loading from "@/components/Loading/Loading";
 import UpdateProfileModal from "@/components/Dashboard/UpdateProfileModal";
@@ -10,36 +9,56 @@ const ProfilePage: React.FC = () => {
   });
   const person = data?.data;
 
-  if (isLoading)
+  if (isLoading) return <Loading />;
+  if (isError)
     return (
-      <p>
-        <Loading />
+      <p className="text-red-600 text-center mt-8">
+        Error fetching profile information. Please try again.
       </p>
     );
-  if (isError)
-    return <p>Error fetching profile information. Please try again.</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Welcome, {person?.name}!</h1>
-      <p className="text-lg mb-6">Manage your profile information below:</p>
+    <div className="max-w-4xl mx-auto p-6  rounded-lg ">
+      <div className="flex flex-col sm:flex-row items-center gap-6">
+        {/* Profile Image */}
+        <img
+          src={person?.image || "https://via.placeholder.com/150"}
+          alt={person?.name || "User"}
+          className="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full border-2 border-gray-300"
+        />
 
-      <div className="mt-6 border-t pt-4">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-8 mt-4">
-          <div>
-            <img
-              src={person?.image || "https://via.placeholder.com/150"}
-              alt={person?.name || "Shop Owner"}
-              className="w-15 h-15 sm:w-32 sm:h-32 object-cover rounded-full border"
-            />
-          </div>
-          <div className="flex-1">
-            <p className="text-lg font-medium">{person?.name || "N/A"}</p>
-            <p className="text-sm">Email: {person?.email || "N/A"}</p>
-            <p className="text-sm">Phone: {person?.phone || "N/A"}</p>
-            <p className="text-sm">Address: {person?.address || "N/A"}</p>
-          </div>
+        {/* Profile Info */}
+        <div className="flex-1">
+          <h1 className="text-2xl sm:text-3xl font-semibold ">
+            {person?.name || "N/A"}
+          </h1>
+          {/* <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
+            {person?.bio ||
+              "The World of Luxury. Explore seasonal collections, iconic accessories, and more."}
+          </p> */}
         </div>
+      </div>
+
+      {/* Additional Info */}
+      <div className="mt-6 border-t pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <p className="text-sm  ">
+            <span className="font-semibold  dark:text-white">Email:</span>{" "}
+            {person?.email || "N/A"}
+          </p>
+          <p className="text-sm  ">
+            <span className="font-semibold  dark:text-white">Phone:</span>{" "}
+            {person?.phone || "N/A"}
+          </p>
+          <p className="text-sm  ">
+            <span className="font-semibold  dark:text-white">Address:</span>{" "}
+            {person?.address || "N/A"}
+          </p>
+        </div>
+      </div>
+
+      {/* Update Modal */}
+      <div className="mt-6 text-center">
         <UpdateProfileModal />
       </div>
     </div>

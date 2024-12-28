@@ -109,30 +109,6 @@ const Login = () => {
           )}
         </form>
 
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => autofillCredentials("customer")}
-          >
-            Customer Credential
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => autofillCredentials("vendor")}
-          >
-            Vendor Credential
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => autofillCredentials("admin")}
-          >
-            Admin Credential
-          </Button>
-        </div>
-
         <div className="flex justify-between items-center mt-6">
           <Link
             to="/forgot-password"
@@ -143,6 +119,36 @@ const Login = () => {
           <Link to="/signup" className="text-sm text-blue-500 hover:underline">
             Sign Up
           </Link>
+        </div>
+
+        {/* Credential Buttons */}
+        <div className="mt-8">
+          <p className="text-center text-sm mb-4">
+            Use the buttons below to autofill login credentials
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <Button
+              variant="outline"
+              className="w-full py-2 text-sm truncate flex justify-center items-center"
+              onClick={() => autofillCredentials("customer")}
+            >
+              Customer
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full py-2 text-sm truncate flex justify-center items-center"
+              onClick={() => autofillCredentials("vendor")}
+            >
+              Vendor
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full py-2 text-sm truncate flex justify-center items-center"
+              onClick={() => autofillCredentials("admin")}
+            >
+              Admin
+            </Button>
+          </div>
         </div>
       </div>
     </div>

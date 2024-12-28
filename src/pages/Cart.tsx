@@ -1,5 +1,6 @@
 import {
   removeFromCart,
+  resetCart,
   updateQuantity,
 } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -67,6 +68,7 @@ const Cart = () => {
         const response = await createOrder(orderPayload).unwrap();
         toast.success("Order created successfully!");
         window.location.href = response?.data?.paymentSession.payment_url;
+        dispatch(resetCart());
       } catch (error) {
         toast.error("Failed to create order. Please try again.");
       }

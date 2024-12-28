@@ -61,6 +61,12 @@ const Navbar = () => {
             All Products
           </a>
           <a
+            href="/shops"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            All Shops
+          </a>
+          <a
             href="/compare"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
@@ -71,6 +77,12 @@ const Navbar = () => {
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Recent Products
+          </a>
+          <a
+            href="/about-us"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            About
           </a>
           {token && user ? (
             <DropdownMenu>
@@ -275,6 +287,12 @@ const Navbar = () => {
                   All Products
                 </a>
                 <a
+                  href="/shops"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  All Shops
+                </a>
+                <a
                   href="/compare"
                   className="text-sm font-medium transition-colors hover:text-primary"
                 >
@@ -285,6 +303,12 @@ const Navbar = () => {
                   className="text-sm font-medium transition-colors hover:text-primary"
                 >
                   Recent Products
+                </a>
+                <a
+                  href="/about-us"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  About
                 </a>
                 <button
                   onClick={toggleDarkMode}

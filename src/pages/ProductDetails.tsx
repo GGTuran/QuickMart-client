@@ -103,10 +103,10 @@ const ProductDetails = () => {
   return (
     <div className="m-10 mx-auto px-4 mt-8">
       <Toaster />
-      <div className="max-w-lg mx-auto p-8 rounded-lg shadow-lg">
+      <div className="max-w-lg mx-auto p-8 rounded-lg ">
         <h2 className="text-2xl font-bold mb-4">{product?.data?.name}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:mt-12">
+          <div className="">
             <img
               src={product?.data?.image}
               alt={product?.data?.name}
@@ -156,7 +156,7 @@ const ProductDetails = () => {
               <img
                 src={product?.image}
                 alt={product?.name}
-                className="rounded-lg mb-4"
+                className="rounded-lg mb-4 object-cover h-40 w-full"
               />
               <h4 className="text-lg font-semibold mb-2">{product?.name}</h4>
               <p className="text-sm text-gray-600">{product?.category?.name}</p>

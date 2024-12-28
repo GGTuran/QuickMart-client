@@ -1,16 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  Cog6ToothIcon,
-} from "@heroicons/react/24/outline";
-import { PawPrint } from "lucide-react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import { userLinks, adminLinks, vendorLinks } from "./constants";
+import { Outlet } from "react-router-dom";
+import MountainIcon from "@/assets/icons/MountainIcon";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -28,7 +22,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div>
+    <div className="flex">
       {/* Mobile Sidebar */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
@@ -73,7 +67,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex grow flex-col gap-y-5 px-6 pb-4">
                   <div className="flex h-16 items-center">
-                    <PawPrint />
+                    <MountainIcon />
                   </div>
                   <nav className="flex-1">
                     <ul role="list" className="space-y-1">
@@ -103,7 +97,7 @@ export default function Dashboard() {
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-white dark:bg-gray-800">
         <div className="flex grow flex-col gap-y-5 px-6 pb-4">
           <div className="flex h-16 items-center">
-            <PawPrint />
+            <MountainIcon />
           </div>
           <nav className="flex-1">
             <ul role="list" className="space-y-1">
@@ -126,7 +120,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="lg:pl-72">
+      <div className="lg:pl-72 flex-1">
         <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8">
           <div className="flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white dark:bg-gray-800 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
             <button
@@ -137,8 +131,11 @@ export default function Dashboard() {
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
-            {/* Add your main dashboard content here */}
           </div>
+        </div>
+        {/* Dynamically render child components */}
+        <div className="p-4">
+          <Outlet />
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ import couponSlice from './features/coupon/couponSlice';
 import cartSlice from './features/cart/cartSlice';
 import comparisonSlice from './features/comparison/comparisonSlice';
 import recentlyViewedSlice from "./features/recent/recentViewed";
+import newsLetterSlice from "./features/newsLetter/newsLetterSlice";
 
 
 
@@ -36,10 +37,16 @@ const recentlyViewedPersistConfig = {
   storage,
 };
 
+const newsLetterPersistConfig = {
+  key: 'newsletter',
+  storage,
+}
+
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 const persistedCartReducer = persistReducer(cartPersistConfig, cartSlice);
 const persistedRecentlyViewedReducer = persistReducer(recentlyViewedPersistConfig, recentlyViewedSlice);
+const persistedNewsLetterReducer = persistReducer(newsLetterPersistConfig, newsLetterSlice);
 
 export const store = configureStore({
   reducer: {
@@ -49,6 +56,7 @@ export const store = configureStore({
     cart: persistedCartReducer,
     comparison: comparisonSlice,
     recentlyViewed: persistedRecentlyViewedReducer,
+    newsLetter: persistedNewsLetterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
