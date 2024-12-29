@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+
   const dispatch = useDispatch();
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -59,11 +59,6 @@ export default function Newsletter() {
           </button>
         </div>
       </form>
-      {message && (
-        <p className="mt-4 text-sm text-green-600 dark:text-green-400">
-          {message}
-        </p>
-      )}
     </div>
   );
 }

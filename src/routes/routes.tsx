@@ -6,12 +6,9 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import { routeGenerator } from "@/utils/routesGenerator";
-
 import { createBrowserRouter } from "react-router-dom";
 import { userPaths } from "./userRoutes";
-
 import { adminPaths } from "./adminRoutes";
-
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import ProfilePage from "@/pages/GetMe";
 import ProductDetails from "@/pages/ProductDetails";
@@ -25,7 +22,6 @@ import CompareList from "@/components/Comparison/CompareList";
 import RecentProducts from "@/pages/RecentProducts";
 import AllShops from "@/pages/AllShops";
 import Dashboard from "@/components/Dashboard/Dashboard";
-import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -118,7 +114,7 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: <Dashboard></Dashboard>,
   },
   {
     path: "/login",

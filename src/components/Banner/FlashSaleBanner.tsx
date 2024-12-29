@@ -6,7 +6,7 @@ const FlashSaleBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px]">
+    <div className="relative w-full bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px] -mt-6">
       <Card
         className="bg-transparent relative group overflow-hidden rounded-lg shadow-lg cursor-pointer"
         onClick={() => navigate("/flash-sale")}

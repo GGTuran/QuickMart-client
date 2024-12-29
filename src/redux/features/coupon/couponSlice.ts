@@ -1,20 +1,22 @@
-// redux/slices/couponSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const couponSlice = createSlice({
-  name: 'coupon',
+  name: "coupon",
   initialState: {
-    code: '',
+    codes: ["DISCOUNT10", "FREESHIP", "SAVE20"],
   },
   reducers: {
     setCouponCode: (state, action) => {
-      state.code = action.payload;
+      state.codes.push(action.payload);
     },
     clearCouponCode: (state) => {
-      state.code = '';
+      state.codes = [];
+    },
+    deleteCouponCode: (state, action) => {
+      state.codes = state.codes.filter((code) => code !== action.payload);
     },
   },
 });
 
-export const { setCouponCode, clearCouponCode } = couponSlice.actions;
+export const { setCouponCode, clearCouponCode, deleteCouponCode } = couponSlice.actions;
 export default couponSlice.reducer;

@@ -7,9 +7,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import sliderImage1 from "@/assets/images/basketball.jpg";
-import sliderImage2 from "@/assets/images/Adidas.jpg";
-import sliderImage3 from "@/assets/images/benjamin-hershey-qegSxvH9U9Y-unsplash.jpg";
+import sliderImage1 from "@/assets/images/Cwal2.webp";
+import sliderImage2 from "@/assets/images/287131_Sam_Agate_049.webp";
+import sliderImage3 from "@/assets/images/287131_Sam_Agate20092.webp";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
@@ -25,7 +25,7 @@ const HeroSection = () => {
       id: 2,
       image: sliderImage2,
       title: "Exclusive Offer",
-      description: "Buy Adidas Sambas with 15% Off",
+      description: "Buy Jackets with 15% Off",
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="relative m-10 w-full p-4 bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px] mt-6">
+    <div className="relative m-10 w-full p-4 bg-cover bg-center max-w-screen-2xl mx-auto h-[300px] md:h-[400px] lg:h-[500px]">
       <Carousel
         className="overflow-hidden rounded-lg shadow-lg"
         plugins={[
@@ -49,7 +49,7 @@ const HeroSection = () => {
           {sliderData.map((slider) => (
             <CarouselItem key={slider.id} className="min-w-full">
               <Card className="bg-transparent relative group">
-                <CardContent className="flex items-center justify-center h-[300px] md:h-[400px] lg:h-[500px] p-0 relative">
+                <CardContent className="flex items-center justify-center h-[300px]  p-0 relative">
                   <img
                     src={slider.image}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

@@ -3,8 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import { userLinks, adminLinks, vendorLinks } from "./constants";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MountainIcon from "@/assets/icons/MountainIcon";
+import DashboardHome from "./DashboardHome/DashboardHome";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,6 +21,7 @@ export default function Dashboard() {
     role === "admin" ? adminLinks : role === "vendor" ? vendorLinks : userLinks;
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="flex">
@@ -133,9 +135,9 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-        {/* Dynamically render child components */}
+        {/* Dynamically rendering child components */}
         <div className="p-4">
-          <Outlet />
+          {location.pathname === "/dashboard" ? <DashboardHome /> : <Outlet />}
         </div>
       </div>
     </div>

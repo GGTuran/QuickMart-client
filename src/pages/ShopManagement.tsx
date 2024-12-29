@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -16,18 +17,31 @@ import toast, { Toaster } from "react-hot-toast";
 const ShopManagement = () => {
   const { data, isLoading } = useGetAllShopsQuery("");
   const [deleteShop, { isLoading: isDeleting }] = useDeleteShopMutation();
-  const shops = data?.data;
+  const shops = data?.data || [];
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Number of items per page
+  const totalItems = shops.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentShops = shops.slice(startIndex, endIndex);
 
   const handleDelete = async (id: string) => {
     if (!id) return;
     try {
-      console.log(id, "id for deleteing");
       await deleteShop(id).unwrap();
       toast.success("Shop deleted successfully!");
     } catch (error) {
       toast.error("Error deleting shop. Please try again.");
       console.error("Error deleting shop:", error);
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -40,12 +54,12 @@ const ShopManagement = () => {
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
-            <TableHead>description</TableHead>
+            <TableHead>Description</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {shops?.map((shop: any) => (
+          {currentShops.map((shop: any) => (
             <TableRow key={shop._id}>
               <TableCell>{shop.name}</TableCell>
               <TableCell>{shop.description}</TableCell>
@@ -62,6 +76,32 @@ const ShopManagement = () => {
           ))}
         </TableBody>
       </Table>
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-4">
+        <Button
+          variant="outline"
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous
+        </Button>
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <Button
+            key={index}
+            variant={currentPage === index + 1 ? "default" : "outline"}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </Button>
+        ))}
+        <Button
+          variant="outline"
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

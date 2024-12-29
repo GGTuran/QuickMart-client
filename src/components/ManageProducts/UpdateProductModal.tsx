@@ -74,7 +74,7 @@ const UpdateProductModal = ({ id }: { id: string }) => {
       <Dialog>
         <DialogTrigger asChild>
           <button className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition-colors duration-300">
-            Update Product
+            Update
           </button>
         </DialogTrigger>
 

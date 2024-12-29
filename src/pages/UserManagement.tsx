@@ -16,6 +16,14 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import toast, { Toaster } from "react-hot-toast";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface User {
   _id: string;
@@ -25,12 +33,24 @@ interface User {
 }
 
 export default function UserManagement() {
-  const { data: users, isLoading, error } = useGetAllUsersQuery("");
+  const { data: usersData, isLoading, error } = useGetAllUsersQuery("");
   const [deleteUser] = useDeleteUserMutation();
   const [promoteUser] = usePromoteUserMutation();
 
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [isPromoting, setIsPromoting] = useState<string | null>(null);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Define the number of users per page
+
+  const users = usersData?.data || [];
+  const totalItems = users.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageUsers = users.slice(startIndex, endIndex);
 
   const handleDeleteUser = async (id: string) => {
     setIsDeleting(id);
@@ -54,6 +74,10 @@ export default function UserManagement() {
     } finally {
       setIsPromoting(null);
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   if (isLoading) {
@@ -90,7 +114,7 @@ export default function UserManagement() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.data?.map((user: User) => (
+            {currentPageUsers.map((user: User) => (
               <TableRow key={user._id} className="text-sm">
                 <TableCell className="px-4 py-2 font-medium">
                   {user.name}
@@ -127,6 +151,34 @@ export default function UserManagement() {
             ))}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-6">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+              />
+            </PaginationItem>
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={() => handlePageChange(index + 1)}
+                  isActive={currentPage === index + 1}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

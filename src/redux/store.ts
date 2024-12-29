@@ -40,6 +40,13 @@ const recentlyViewedPersistConfig = {
 const newsLetterPersistConfig = {
   key: 'newsletter',
   storage,
+  whitelist: ["subscribers"],
+}
+
+const couponPersistConfig = {
+  key: 'coupon',
+  storage,
+  whitelist: ["codes"],
 }
 
 
@@ -47,16 +54,17 @@ const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 const persistedCartReducer = persistReducer(cartPersistConfig, cartSlice);
 const persistedRecentlyViewedReducer = persistReducer(recentlyViewedPersistConfig, recentlyViewedSlice);
 const persistedNewsLetterReducer = persistReducer(newsLetterPersistConfig, newsLetterSlice);
+const persistedCouponReducer = persistReducer(couponPersistConfig, couponSlice);
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
-    coupon: couponSlice,
     cart: persistedCartReducer,
     comparison: comparisonSlice,
     recentlyViewed: persistedRecentlyViewedReducer,
     newsLetter: persistedNewsLetterReducer,
+    coupon: persistedCouponReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

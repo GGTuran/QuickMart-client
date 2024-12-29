@@ -1,11 +1,16 @@
 import { useGetFlashProductsQuery } from "@/redux/features/product/productApi";
 import ProductCard from "@/components/ProductCard/ProductCard";
+import Loading from "../Loading/Loading";
 
 const FlashSalePage = () => {
   const { data: products, isLoading } = useGetFlashProductsQuery("");
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (

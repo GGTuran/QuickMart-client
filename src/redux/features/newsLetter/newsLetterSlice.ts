@@ -5,7 +5,7 @@ type NewsletterState = {
 };
 
 const initialState: NewsletterState = {
-    subscribers: [],
+    subscribers: ["john.doe@example.com", "jane.smith@example.com"],
 };
 
 const newsletterSlice = createSlice({
@@ -17,8 +17,13 @@ const newsletterSlice = createSlice({
                 state.subscribers.push(action.payload);
             }
         },
+        unsubscribe: (state, action: PayloadAction<string>) => {
+            state.subscribers = state.subscribers.filter(
+                (subscriber) => subscriber !== action.payload
+            );
+        },
     },
 });
 
-export const { subscribe } = newsletterSlice.actions;
+export const { subscribe, unsubscribe } = newsletterSlice.actions;
 export default newsletterSlice.reducer;

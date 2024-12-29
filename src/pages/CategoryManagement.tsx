@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -38,6 +37,14 @@ import {
   useUpdateCategoryMutation,
 } from "@/redux/features/category/categoryApi";
 import toast, { Toaster } from "react-hot-toast";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface Category {
   _id?: string;
@@ -51,7 +58,7 @@ export default function CategoryManagement() {
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
 
-  const categories = categoriesData?.data;
+  const categories = categoriesData?.data || [];
 
   const [newCategory, setNewCategory] = useState<Category>({
     name: "",
@@ -61,6 +68,16 @@ export default function CategoryManagement() {
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Number of items per page
+  const totalItems = categories.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentCategories = categories.slice(startIndex, endIndex);
 
   const handleAddCategory = async () => {
     if (newCategory.name.trim() && newCategory.image) {
@@ -74,8 +91,7 @@ export default function CategoryManagement() {
         setNewCategory({ name: "", image: null }); // Reset form
         setIsAddDialogOpen(false);
       } catch (error) {
-        toast.error("Error adding category:");
-        console.error("Error adding category:", error);
+        toast.error("Error adding category");
       }
     }
   };
@@ -89,13 +105,8 @@ export default function CategoryManagement() {
           formData.append("image", editingCategory.image);
         }
 
-        // Debugging FormData content
-        for (let pair of formData.entries()) {
-          console.log(`${pair[0]}: ${pair[1]}`);
-        }
-
         await updateCategory({
-          id: editingCategory._id,
+          id: editingCategory._id!,
           categoryInfo: formData,
         }).unwrap();
         setEditingCategory(null);
@@ -103,19 +114,16 @@ export default function CategoryManagement() {
         toast.success("Category updated successfully");
       } catch (error) {
         toast.error("Error updating category");
-        console.error("Error updating category:", error);
       }
     }
   };
 
   const handleDeleteCategory = async (id: string) => {
     try {
-      console.log(id, "id");
       await deleteCategory(id);
       toast.success("Deleted category");
     } catch (error) {
       toast.error("Error deleting category");
-      console.error("Error deleting category:", error);
     }
   };
 
@@ -165,108 +173,134 @@ export default function CategoryManagement() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
       {isLoading ? (
         <p>Loading categories...</p>
       ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {categories?.map((category: Category) => (
-              <TableRow key={category._id}>
-                <TableCell>{category.name}</TableCell>
-                <TableCell>
-                  <Dialog
-                    open={isEditDialogOpen}
-                    onOpenChange={setIsEditDialogOpen}
-                  >
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="mr-2"
-                        onClick={() => {
-                          setEditingCategory(category);
-                          setIsEditDialogOpen(true);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle>Edit Category</DialogTitle>
-                        <DialogDescription>
-                          Make changes to the category.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <Input
-                          id="edit-name"
-                          placeholder="Category Name"
-                          value={editingCategory?.name || ""}
-                          onChange={(e) =>
-                            setEditingCategory(
-                              editingCategory
-                                ? { ...editingCategory, name: e.target.value }
-                                : null
-                            )
-                          }
-                        />
-
-                        <Input
-                          id="edit-image"
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) =>
-                            setEditingCategory(
-                              editingCategory
-                                ? {
-                                    ...editingCategory,
-                                    image: e.target.files?.[0] || null,
-                                  }
-                                : null
-                            )
-                          }
-                        />
-                      </div>
-                      <DialogFooter>
-                        <Button type="submit" onClick={handleEditCategory}>
-                          Save Changes
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button variant="destructive">Delete</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          This action cannot be undone. This will permanently
-                          delete the category.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => handleDeleteCategory(category._id!)}
-                        >
-                          Delete
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </TableCell>
+        <>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {currentCategories.map((category: Category) => (
+                <TableRow key={category._id}>
+                  <TableCell>{category.name}</TableCell>
+                  <TableCell>
+                    <Dialog
+                      open={isEditDialogOpen}
+                      onOpenChange={setIsEditDialogOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="mr-2"
+                          onClick={() => {
+                            setEditingCategory(category);
+                            setIsEditDialogOpen(true);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Edit Category</DialogTitle>
+                          <DialogDescription>
+                            Make changes to the category.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <Input
+                            id="edit-name"
+                            placeholder="Category Name"
+                            value={editingCategory?.name || ""}
+                            onChange={(e) =>
+                              setEditingCategory(
+                                editingCategory
+                                  ? { ...editingCategory, name: e.target.value }
+                                  : null
+                              )
+                            }
+                          />
+
+                          <Input
+                            id="edit-image"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                              setEditingCategory(
+                                editingCategory
+                                  ? {
+                                      ...editingCategory,
+                                      image: e.target.files?.[0] || null,
+                                    }
+                                  : null
+                              )
+                            }
+                          />
+                        </div>
+                        <DialogFooter>
+                          <Button type="submit" onClick={handleEditCategory}>
+                            Save Changes
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive">Delete</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete the category.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => handleDeleteCategory(category._id!)}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          <Pagination>
+            <PaginationContent>
+              <PaginationPrevious
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              />
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(index + 1)}
+                    isActive={currentPage === index + 1}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationNext
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+              />
+            </PaginationContent>
+          </Pagination>
+        </>
       )}
     </div>
   );

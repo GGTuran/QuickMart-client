@@ -114,6 +114,12 @@ const Navbar = () => {
                     <DropdownMenuItem>
                       <a href="/admin/all-orders">Orders</a>
                     </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/news-letter">NewsLetter</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/coupon">Coupon</a>
+                    </DropdownMenuItem>
                   </>
                 )}
                 {user.role === "customer" && (
@@ -214,6 +220,12 @@ const Navbar = () => {
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <a href="/admin/all-orders">Orders</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/news-letter">NewsLetter</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <a href="/admin/coupon">Coupon</a>
                     </DropdownMenuItem>
                   </>
                 )}

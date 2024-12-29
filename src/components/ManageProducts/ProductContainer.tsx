@@ -39,7 +39,7 @@ const ProductContainer = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Number of products to display per page
+  const itemsPerPage = 3; // Number of products to display per page
 
   // Calculate pagination values
   const totalItems = products?.length || 0;

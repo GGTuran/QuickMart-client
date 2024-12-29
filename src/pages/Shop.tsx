@@ -4,7 +4,7 @@ import {
   useGetShopByIdQuery,
   useUnfollowShopMutation,
 } from "@/redux/features/shop/shopApi";
-import { useGetProductsByShopIdQuery } from "@/redux/features/product/productApi";
+// import { useGetProductsByShopIdQuery } from "@/redux/features/product/productApi";
 import { Button } from "@/components/ui/button";
 import { useGetProfileQuery } from "@/redux/features/user/userApi";
 import ProductList from "@/components/Shop/ProductList";
@@ -19,8 +19,8 @@ const Shop = () => {
   // console.log(shopData, "data");
 
   // Fetch products by vendor
-  const { data } = useGetProductsByShopIdQuery(shopId);
-  const products = data?.data;
+  // const { data } = useGetProductsByShopIdQuery(shopId);
+  // const products = data?.data;
   // console.log(products, "from shop");
 
   const { data: userData } = useGetProfileQuery("", {

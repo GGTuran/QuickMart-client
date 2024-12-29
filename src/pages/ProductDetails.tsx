@@ -129,7 +129,11 @@ const ProductDetails = () => {
             <div className="flex justify-between gap-2">
               <Button
                 onClick={() =>
-                  handleAddToCart(product, product?.data?.shopId, user?._id)
+                  handleAddToCart(
+                    product?.data,
+                    product?.data?.shopId,
+                    user?._id
+                  )
                 }
                 className=" mt-4 py-2 rounded"
               >
